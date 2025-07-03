@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Moda Femenina</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold display-6">Nuevas Tendencias</h2>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- Producto 1 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://static.zara.net/photos///2024/V/0/1/p/8747/529/800/2/w/750/8747529800_6_1_1.jpg?ts=1713270308056" class="card-img-top rounded-top-4" alt="Vestido negro con abertura">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Vestido Cut-Out Negro</h5>
+                                    <p class="card-text">Vestido ajustado con abertura lateral y escote redondo.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $39.99</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 15</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: MediumVioletRed;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://static.pullandbear.net/2/photos//2024/I/0/1/p/9237320/505/9237320505_2_5_8.jpg?t=1715863360104" class="card-img-top rounded-top-4" alt="Blusa con estampado retro">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Blusa Retro Print</h5>
+                                    <p class="card-text">Blusa entallada con estampado psicodélico y cuello subido.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $24.95</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 20</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: MediumVioletRed;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://static.zara.net/photos///2024/I/0/1/p/9875/459/620/2/w/750/9875459620_6_1_1.jpg?ts=1715081736942" class="card-img-top rounded-top-4" alt="Falda satinada rosa">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Falda Satinada Rosa</h5>
+                                    <p class="card-text">Falda midi con acabado brillante y cintura alta.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $34.90</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 12</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: MediumVioletRed;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
