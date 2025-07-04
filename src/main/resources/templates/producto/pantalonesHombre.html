@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Pantalones para Hombre</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+        
+        <header th:replace="~{layout/plantilla :: header}"/>
+        
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold display-6">Pantalones para Hombre</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://i.pinimg.com/474x/1a/2b/3c/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg" class="card-img-top rounded-top-4" alt="Jeans slim fit">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Jeans Slim Fit</h5>
+                                    <p class="card-text">Jeans de mezclilla azul oscuro con corte ajustado y detalles desgastados.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $42.90</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 28</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #34495E;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://i.pinimg.com/474x/7e/8f/9a/7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b.jpg" class="card-img-top rounded-top-4" alt="Pantalón formal">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Pantalón Formal</h5>
+                                    <p class="card-text">Pantalón de vestir en lana con raya diplomática y corte clásico.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $68.50</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 16</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #2C3E50;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://i.pinimg.com/474x/4c/5d/6e/4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f.jpg" class="card-img-top rounded-top-4" alt="Chinos beige">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Chinos Beige</h5>
+                                    <p class="card-text">Pantalones chinos en algodón premium con corte regular y bolsillos.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $39.75</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 22</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #D4A574;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://i.pinimg.com/474x/9a/0b/1c/9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d.jpg" class="card-img-top rounded-top-4" alt="Pantalón deportivo">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Pantalón Deportivo</h5>
+                                    <p class="card-text">Joggers con tecnología dri-fit, cintura elástica y bolsillos laterales.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $35.20</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 30</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #27AE60;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://i.pinimg.com/474x/2d/3e/4f/2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a.jpg" class="card-img-top rounded-top-4" alt="Shorts cargo">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Shorts Cargo</h5>
+                                    <p class="card-text">Shorts de algodón con múltiples bolsillos y cintura ajustable.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $28.99</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 25</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #95A5A6;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://i.pinimg.com/474x/6f/7a/8b/6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c.jpg" class="card-img-top rounded-top-4" alt="Pantalón cargo">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Pantalón Cargo</h5>
+                                    <p class="card-text">Pantalón militar con bolsillos laterales y tela resistente.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $49.80</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 18</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #7F8C8D;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

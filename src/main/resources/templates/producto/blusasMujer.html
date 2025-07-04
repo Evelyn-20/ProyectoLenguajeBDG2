@@ -6,6 +6,9 @@
         <title>Nous - Moda Femenina</title>
     </head>
     <body class="d-flex flex-column min-vh-100 bg-light">
+        
+        <header th:replace="~{layout/plantilla :: header}"/>
+        
         <section class="py-5">
             <div class="container">
                 <h2 class="text-center mb-5 fw-bold display-6">Nuevas Tendencias</h2>
@@ -26,5 +29,7 @@
                 </div>
             </div>
         </section>
+        
+        <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>

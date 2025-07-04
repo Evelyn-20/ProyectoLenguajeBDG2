@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Accesorios</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+        <header th:replace="~{layout/plantilla :: header}"/>
+        <section th:fragment="Categorias" class="py-5">
+            <div class="container py-5">
+                <h2 class="text-center mb-5 fw-bold display-5">Accesorios</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <a href="/producto/relojes" class="text-decoration-none">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <img src="https://i.pinimg.com/474x/3a/4b/5c/3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d.jpg" 
+                                    alt="Relojes" class="card-img-top rounded-top-4" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-dark">Relojes</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/producto/bolsos" class="text-decoration-none">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <img src="https://i.pinimg.com/474x/7e/8f/9a/7e8f9a1b2c3d4e5f6a7b8c9d0e1f2a3b.jpg" 
+                                    alt="Bolsos" class="card-img-top rounded-top-4" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-dark">Bolsos</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/producto/joyas" class="text-decoration-none">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <img src="https://i.pinimg.com/474x/1c/2d/3e/1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f.jpg" 
+                                     alt="Joyas" class="card-img-top rounded-top-4" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-dark">Joyas</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/producto/gorras" class="text-decoration-none">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <img src="https://i.pinimg.com/474x/5e/7f/8a/5e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b.jpg" 
+                                     alt="Gorras" class="card-img-top rounded-top-4" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-dark">Gorras</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/producto/cinturones" class="text-decoration-none">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <img src="https://i.pinimg.com/474x/9c/0d/1e/9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f.jpg" 
+                                     alt="Cinturones" class="card-img-top rounded-top-4" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-dark">Fajas</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/producto/gafas" class="text-decoration-none">
+                            <div class="card shadow-sm rounded-4 border-0">
+                                <img src="https://i.pinimg.com/474x/2f/3a/4b/2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c.jpg" 
+                                     alt="Gafas" class="card-img-top rounded-top-4" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-dark">Lentes</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

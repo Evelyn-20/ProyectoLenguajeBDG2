@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Camisas para Hombre</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+        
+        <header th:replace="~{layout/plantilla :: header}"/>
+        
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold display-6">Camisas para Hombre</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://www.camiseriaeuropea.com/cdn/shop/files/Blanca008_001.jpg?v=1682536174" class="card-img-top rounded-top-4" alt="Camisa formal blanca">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Camisa Formal Blanca</h5>
+                                    <p class="card-text">Camisa clásica de algodón con corte slim fit y cuello italiano.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $45.99</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 15</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #2C3E50;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://media.falabella.com/falabellaCO/126602256_01/w=800,h=800,fit=pad" class="card-img-top rounded-top-4" alt="Camisa casual azul">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Camisa Casual Azul</h5>
+                                    <p class="card-text">Camisa de mezclilla suave con botones de madera y corte relajado.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $32.50</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 12</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #34495E;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://media.istockphoto.com/id/498852901/es/foto/rojo-camisa-a-cuadros.jpg?s=612x612&w=0&k=20&c=nzH4UgrKUnmaqW9YwIGw8s51aXYcKIXOMJE6fHq_ysE=" class="card-img-top rounded-top-4" alt="Camisa a cuadros">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Camisa a Cuadros</h5>
+                                    <p class="card-text">Camisa de franela con patrón escocés en tonos grises y azules.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $38.75</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 8</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #7F8C8D;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://progresivacr.com/cdn/shop/products/12.1.8_PLA175_NEGRO_PLAYERA_TIPO_POLO_PIQUE_A_1800x1800.jpg?v=1631727120" class="card-img-top rounded-top-4" alt="Camisa polo negra">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Camisa Polo Negra</h5>
+                                    <p class="card-text">Polo de algodón piqué con cuello y puños en contraste.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $28.99</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 25</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #1A252F;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://http2.mlstatic.com/D_683494-MLA79606078554_102024-C.jpg" class="card-img-top rounded-top-4" alt="Camisa lino beige">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Camisa de Lino Beige</h5>
+                                    <p class="card-text">Camisa de lino natural con corte holgado, ideal para verano.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $52.90</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 6</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #D4A574;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img src="https://www.rokit.co.uk/cdn/shop/files/MECSHI80400V_1.jpg?v=1748057080" class="card-img-top rounded-top-4" alt="Camisa estampada">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Camisa Estampada</h5>
+                                    <p class="card-text">Camisa con estampado tropical, perfecta para ocasiones casuales.</p>
+                                    <p class="card-text"><strong>Precio:</strong> $35.60</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 10</p>
+                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #27AE60;">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>
