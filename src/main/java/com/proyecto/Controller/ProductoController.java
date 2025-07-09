@@ -1,4 +1,6 @@
 package com.proyecto.Controller;
+
+import com.proyecto.Domain.Producto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -6,87 +8,59 @@ import org.springframework.ui.Model;
 @Controller
 public class ProductoController {
     
-    // ===== RUTAS PARA MUJERES =====
     @GetMapping("/mujer")
     public String mujer(Model model) {
         return "producto/categoriaMujer";
     }
     
-    @GetMapping("/producto/mujeres")
-    public String mujeres(Model model) {
-        return "producto/categoriaMujer";
-    }
-    
-    @GetMapping("/producto/categoriaMujer")
-    public String categoriaMujer(Model model) {
-        return "producto/categoriaMujer";
-    }
-    
     @GetMapping("/producto/vestidos")
     public String vestidos(Model model) {
-        return "producto/vestidos";
+        return "producto/vestidosMujer";
     }
     
-    @GetMapping("/producto/blusas")
+    @GetMapping("/producto/blusas-camisetas")
     public String blusas(Model model) {
         return "producto/blusasMujer";
     }
     
-    @GetMapping("/producto/enaguas")
-    public String faldas(Model model) {
+    @GetMapping("/producto/faldas")
+    public String enaguas(Model model) {
         return "producto/enaguasMujer";
     }
     
-    // ===== RUTAS PARA HOMBRES =====
+    @GetMapping("/producto/pantalones-mujer")
+    public String pantalonesMujer(Model model) {
+        return "producto/pantalonesMujer";
+    }
+    
+    @GetMapping("/producto/chaquetas-sudaderas-mujer")
+    public String chaquetasMujer(Model model) {
+        return "producto/chaquetasMujer";
+    }
+    
     @GetMapping("/hombre")
     public String hombre(Model model) {
         return "producto/categoriaHombre";
     }
     
-    @GetMapping("/producto/hombres")
-    public String hombres(Model model) {
-        return "producto/categoriaHombre";
-    }
-    
-    @GetMapping("/producto/categoriaHombre")
-    public String categoriaHombre(Model model) {
-        return "producto/categoriaHombre";
-    }
-    
-    @GetMapping("/producto/camisas")
+    @GetMapping("/producto/camisas-camisetas")
     public String camisas(Model model) {
         return "producto/camisasHombre";
     }
     
-    @GetMapping("/producto/chaquetas")
-    public String chaquetas(Model model) {
+    @GetMapping("/producto/chaquetas-sudaderas-hombre")
+    public String chaquetasHombre(Model model) {
         return "producto/chaquetasHombre";
     }
     
-    @GetMapping("/producto/pantalones")
+    @GetMapping("/producto/pantalones-hombre")
     public String pantalones(Model model) {
         return "producto/pantalonesHombre";
     }
     
-    // ===== RUTAS PARA ZAPATOS =====
     @GetMapping("/zapatos")
     public String zapatos(Model model) {
         return "producto/categoriaZapatos";
-    }
-    
-    @GetMapping("/producto/zapatos")
-    public String productosZapatos(Model model) {
-        return "producto/categoriaZapatos";
-    }
-    
-    @GetMapping("/producto/categoriaZapatos")
-    public String categoriaZapatos(Model model) {
-        return "producto/categoriaZapatos";
-    }
-    
-    @GetMapping("/producto/sneakers")
-    public String sneakers(Model model) {
-        return "producto/tennis";
     }
     
     @GetMapping("/producto/tenis")
@@ -104,58 +78,22 @@ public class ProductoController {
         return "producto/zapatosFormales";
     }
     
-    @GetMapping("/producto/sandalias")
-    public String sandalias(Model model) {
-        return "producto/fajas";
-    }
-    
-    @GetMapping("/producto/fajas")
-    public String fajas(Model model) {
-        return "producto/fajas";
-    }
-    
-    @GetMapping("/producto/mocasines")
-    public String mocasines(Model model) {
-        return "producto/mocasines";
-    }
-    
-    @GetMapping("/producto/zapatos-deportivos")
-    public String zapatosDeportivos(Model model) {
-        return "producto/zapatosDeportivos";
-    }
-    
     @GetMapping("/producto/zapatos-casuales")
     public String zapatosCasuales(Model model) {
-        return "producto/bolso";
+        return "producto/zapatosCasuales";
     }
     
-    @GetMapping("/producto/bolso")
-    public String bolso(Model model) {
-        return "producto/bolso";
+    @GetMapping("/producto/sandalias")
+    public String sandalias(Model model) {
+        return "producto/sandalias";
     }
     
-    // ===== RUTAS PARA ACCESORIOS =====
     @GetMapping("/accesorios")
     public String accesorios(Model model) {
         return "producto/categoriaAccesorios";
     }
     
-    @GetMapping("/producto/accesorios")
-    public String productosAccesorios(Model model) {
-        return "producto/categoriaAccesorios";
-    }
-    
-    @GetMapping("/producto/categoriaAccesorios")
-    public String categoriaAccesorios(Model model) {
-        return "producto/categoriaAccesorios";
-    }
-    
-    @GetMapping("/producto/reloj")
-    public String reloj(Model model) {
-        return "producto/reloj";
-    }
-    
-    @GetMapping("/producto/gorras")
+    @GetMapping("/producto/gorras-sombreros")
     public String gorras(Model model) {
         return "producto/gorras";
     }
@@ -163,5 +101,46 @@ public class ProductoController {
     @GetMapping("/producto/lentes")
     public String lentes(Model model) {
         return "producto/lentes";
+    }
+    
+    @GetMapping("/producto/bolso-mochila")
+    public String bolso(Model model) {
+        return "producto/bolso";
+    }
+    
+    @GetMapping("/producto/bufandas-guantes")
+    public String bufandas(Model model) {
+        return "producto/bufandas";
+    }
+    
+    @GetMapping("/producto/cinturones")
+    public String fajas(Model model) {
+        return "producto/fajas";
+    }
+    
+    @GetMapping("/producto/joyería")
+    public String joyas(Model model) {
+        return "producto/joyas";
+    }
+    
+    @GetMapping("/producto/fragmentos")
+    public String fragmentos(Model model) {
+        return "producto/fragmentos";
+    }
+    
+    @GetMapping("/inventario/listado")
+    public String verListado(Model model) {
+        model.addAttribute("producto", new Producto());
+        return "producto/listado";
+    }
+
+    @GetMapping("/producto/modificar")
+    public String modificar(Model model) {
+        return "producto/modificar";
+    }
+    
+    @GetMapping("/producto/agregar")
+    public String agregar(Model model) {
+        return "producto/AgregarProducto";
     }
 }

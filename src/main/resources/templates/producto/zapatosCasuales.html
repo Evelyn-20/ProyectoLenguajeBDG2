@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Zapatos</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+
+        <header th:replace="~{layout/plantilla :: header}"/>
+
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold display-6">Zapatos Casuales</h2>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/zapato_casual_hombre.jpg}" class="card-img-top rounded-top-4" style="height: 350px; object-fit: cover;" alt="Zapatos Casual Hombre">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Zapatos Casual Hombre</h5>
+                                    <p class="card-text">Diseño cómodo con suela flexible, perfectos para el día a día.</p>
+                                    <p class="card-text"><strong>Material:</strong> Cuero sintético</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡35,000</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 25</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/zapato_casual_mujer.jpg}" class="card-img-top rounded-top-4" style="height: 350px; object-fit: cover;" alt="Zapatos Casual Mujer">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Zapatos Casual Mujer</h5>
+                                    <p class="card-text">Diseño moderno y ligero, ideal para combinar con cualquier outfit.</p>
+                                    <p class="card-text"><strong>Material:</strong> Cuero sintético y tela</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡33,500</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 30</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

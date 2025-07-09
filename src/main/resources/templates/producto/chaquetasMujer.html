@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Mujer</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+
+        <header th:replace="~{layout/plantilla :: header}"/>
+
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold display-6">Chaquetas & Sudaderas</h2>
+                
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/chaqueta_demin.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Chaqueta Denim Mujer">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Chaqueta Denim Mujer</h5>
+                                    <p class="card-text">Chaqueta clásica de mezclilla con corte ajustado y detalles modernos.</p>
+                                    <p class="card-text"><strong>Material:</strong> Mezclila</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡38,900</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 20</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/sueter_punto.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Suéter de Punto Mujer">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Suéter de Punto Mujer</h5>
+                                    <p class="card-text">Suéter cálido y suave con diseño atemporal, ideal para cualquier ocasión.</p>
+                                    <p class="card-text"><strong>Material:</strong> Tejido acrílico suave</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡27,500</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 30</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/sudadera_capucha.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Sudadera con Capucha Mujer">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Sudadera con Capucha Mujer</h5>
+                                    <p class="card-text">Sudadera cómoda y casual, perfecta para un look relajado y moderno.</p>
+                                    <p class="card-text"><strong>Material:</strong> Algodón con mezcla de poliéster</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡22,900</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 40</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

@@ -3,92 +3,81 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>Nous - Chaquetas para Hombre</title>
+        <title>Nous - Hombre</title>
     </head>
     <body class="d-flex flex-column min-vh-100 bg-light">
-        
+
         <header th:replace="~{layout/plantilla :: header}"/>
-        
+
         <section class="py-5">
             <div class="container">
-                <h2 class="text-center mb-5 fw-bold display-6">Chaquetas para Hombre</h2>
+                <h2 class="text-center mb-5 fw-bold display-6">Chaquetas & Sudaderas</h2>
+
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <div class="col">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://i.pinimg.com/474x/3a/4b/5c/3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d.jpg" class="card-img-top rounded-top-4" alt="Blazer formal negro">
+                            <img th:src="@{/img/blazer_iconic.jpg}" class="card-img-top rounded-top-4" alt="Blazer formal" style="height: 450px; object-fit: cover;">
                                 <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Blazer Formal Negro</h5>
-                                    <p class="card-text">Blazer clásico de corte slim con solapas en punta y forro interior.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $89.99</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 12</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #2C3E50;">Añadir al carrito</a>
+                                    <h5 class="card-title">Blazer Iconic</h5>
+                                    <p class="card-text">Blazer estructurado negro con forro interior y corte elegante slim.</p>
+                                    <p class="card-text"><strong>Material:</strong> Poliéster con viscosa</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡47,500</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
                                 </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://i.pinimg.com/474x/6e/7f/8a/6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b.jpg" class="card-img-top rounded-top-4" alt="Chaqueta de cuero">
+                            <img th:src="@{/img/leather_edge.jpg}" class="card-img-top rounded-top-4" alt="Chaqueta biker cuero" style="height: 450px; object-fit: cover;">
                                 <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Chaqueta de Cuero</h5>
-                                    <p class="card-text">Chaqueta biker en cuero genuino con cremalleras y detalles metálicos.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $159.90</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 8</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #8B4513;">Añadir al carrito</a>
+                                    <h5 class="card-title">Leather Edge</h5>
+                                    <p class="card-text">Chaqueta tipo biker en cuero con cremalleras y diseño robusto.</p>
+                                    <p class="card-text"><strong>Material:</strong> Cuero sintético</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡84,000</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
                                 </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://i.pinimg.com/474x/9c/0d/1e/9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f.jpg" class="card-img-top rounded-top-4" alt="Chaqueta deportiva">
+                            <img th:src="@{/img/soft_knit.jpg}" class="card-img-top rounded-top-4" alt="Cardigan gris" style="height: 450px; object-fit: cover;">
                                 <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Chaqueta Deportiva</h5>
-                                    <p class="card-text">Chaqueta impermeable con capucha y bolsillos con cremallera.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $65.50</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 18</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #3498DB;">Añadir al carrito</a>
+                                    <h5 class="card-title">Soft Knit</h5>
+                                    <p class="card-text">Cardigan gris claro con botones madera y diseño comfy para entretiempo.</p>
+                                    <p class="card-text"><strong>Material:</strong> Tejido acrílico</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡38,000</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
                                 </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://i.pinimg.com/474x/2f/3a/4b/2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c.jpg" class="card-img-top rounded-top-4" alt="Cardigan gris">
+                            <img th:src="@{/img/street_bomber.jpg}" class="card-img-top rounded-top-4" alt="Bomber jacket" style="height: 450px; object-fit: cover;">
                                 <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Cardigan Gris</h5>
-                                    <p class="card-text">Cardigan de lana merino con botones de madera y bolsillos frontales.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $72.80</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 14</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #7F8C8D;">Añadir al carrito</a>
+                                    <h5 class="card-title">Street Bomber</h5>
+                                    <p class="card-text">Bomber en tonos neutros con forro térmico y acabados elásticos.</p>
+                                    <p class="card-text"><strong>Material:</strong> Nylon y algodón</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡28,900</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
                                 </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://i.pinimg.com/474x/5c/6d/7e/5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f.jpg" class="card-img-top rounded-top-4" alt="Chaqueta bomber">
+                            <img th:src="@{/img/wool_overcoat.jpg}" class="card-img-top rounded-top-4" alt="Abrigo largo" style="height: 450px; object-fit: cover;">
                                 <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Chaqueta Bomber</h5>
-                                    <p class="card-text">Bomber jacket con ribetes elásticos y forro acolchado ligero.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $54.75</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 22</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #E74C3C;">Añadir al carrito</a>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://i.pinimg.com/474x/8f/9a/0b/8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c.jpg" class="card-img-top rounded-top-4" alt="Abrigo largo">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Abrigo Largo</h5>
-                                    <p class="card-text">Abrigo de lana con doble abotonadura y cinturón ajustable.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $125.00</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 6</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: #34495E;">Añadir al carrito</a>
+                                    <h5 class="card-title">Wool Overcoat</h5>
+                                    <p class="card-text">Abrigo largo en lana con doble botonadura, estilo europeo sobrio.</p>
+                                    <p class="card-text"><strong>Material:</strong> Lana</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡68,000</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
                                 </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>

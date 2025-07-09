@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Accesorios</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+
+        <header th:replace="~{layout/plantilla :: header}"/>
+
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold display-6">Bufandas & Guantes</h2>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/bufanda_lana.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Bufanda de Lana">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Bufanda de Lana</h5>
+                                    <p class="card-text">Bufanda suave y cálida, perfecta para los días fríos.</p>
+                                    <p class="card-text"><strong>Material:</strong> Lana</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡12,500</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 40</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/bufanda_tejida.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Bufanda Tejida">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Bufanda Tejida</h5>
+                                    <p class="card-text">Diseño artesanal con colores modernos y materiales suaves.</p>
+                                    <p class="card-text"><strong>Material:</strong> Acrílico</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡15,300</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 35</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/guantes_cuero.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Guantes de Cuero">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Guantes de Cuero</h5>
+                                    <p class="card-text">Elegantes y resistentes, perfectos para mantener las manos calientes.</p>
+                                    <p class="card-text"><strong>Material:</strong> Cuero</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡18,700</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 28</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/guantes_punto.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Guantes de Punto">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Guantes de Punto</h5>
+                                    <p class="card-text">Cómodos y cálidos, ideales para un look casual y funcional.</p>
+                                    <p class="card-text"><strong>Material:</strong> Poliéster</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡13,900</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 30</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

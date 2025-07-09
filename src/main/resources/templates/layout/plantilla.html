@@ -11,12 +11,12 @@
     </head>
 
     <body>
-        <header th:fragment="header" class="bg-white border-bottom">
+        <header th:fragment="header" class="border-bottom" style="background-color: #F3EEE8;">
             <div class="container py-3">
                 <div class="row align-items-center">
                     <div class="col-auto">
                         <a th:href="@{/}" class="d-flex align-items-center text-decoration-none">
-                            <img src="https://pbs.twimg.com/profile_images/1435988496318177284/79aln7KG_400x400.jpg" alt="Nous Logo" width="180" class="img-fluid me-2"/>
+                            <img th:src="@{/img/logo.jpg}" alt="Nous Logo" width="180" class="img-fluid me-2"/>
                         </a>
                     </div>
                     <div class="col d-none d-lg-flex justify-content-center align-items-center gap-4">
@@ -27,10 +27,10 @@
                                 Catálogo
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="catalogoDropdown">
-                                <li><a class="dropdown-item" th:href="@{/producto/categoriaMujer}">Mujeres</a></li>
-                                <li><a class="dropdown-item" th:href="@{/producto/categoriaHombre}">Hombres</a></li>
-                                <li><a class="dropdown-item" th:href="@{/producto/categoriaAccesorios}">Accesorios</a></li>
-                                <li><a class="dropdown-item" th:href="@{/producto/zapatos}">Zapatos</a></li>
+                                <li><a class="dropdown-item" th:href="@{/mujer}">Mujeres</a></li>
+                                <li><a class="dropdown-item" th:href="@{/hombre}">Hombres</a></li>
+                                <li><a class="dropdown-item" th:href="@{/accesorios}">Accesorios</a></li>
+                                <li><a class="dropdown-item" th:href="@{/zapatos}">Zapatos</a></li>
                             </ul>
                         </div>
 
@@ -54,7 +54,6 @@
                                     Productos
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="productosDropdown">
-                                    <li><a class="dropdown-item" th:href="@{/producto/listado}">Productos</a></li>
                                     <li><a class="dropdown-item" th:href="@{/inventario/listado}">Inventario</a></li>
                                     <li><a class="dropdown-item" th:href="@{/categoria/listado}">Categorías</a></li>
                                 </ul>
@@ -71,7 +70,7 @@
 
                         <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
                             <li class="nav-item">
-                                <a class="btn btn-outline-dark px-4 py-2 d-flex align-items-center gap-2" th:href="@{/login}">
+                                <a class="btn btn-light px-4 py-2 d-flex align-items-center gap-2" th:href="@{/login}">
                                     <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
                                 </a>
                             </li>
@@ -80,7 +79,7 @@
                         <ul class="navbar-nav" sec:authorize="isAuthenticated()">
                             <li class="nav-item">
                                 <form method="post" th:action="@{/logout}">
-                                    <button class="btn btn-outline-secondary px-4 py-2 d-flex align-items-center gap-2" type="submit">
+                                    <button class="btn btn-light px-4 py-2 d-flex align-items-center gap-2" type="submit">
                                         <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
                                     </button>
                                 </form>
@@ -91,7 +90,7 @@
             </div>
         </header>
 
-        <footer th:fragment="footer" class="bg-light text-dark mt-5 pt-5 pb-3 border-top">
+        <footer th:fragment="footer" class="text-dark mt-5 pt-5 pb-3 border-top" style="background-color: #F3EEE8;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 mb-4">
@@ -120,8 +119,8 @@
                     </div>
                     <div class="col-md-3 mb-4">
                         <h6 class="fw-semibold">Idioma</h6>
-                        <a th:href="@{?lang=es}" class="btn btn-outline-secondary btn-sm me-2 mb-2">Español</a>
-                        <a th:href="@{?lang=en}" class="btn btn-outline-secondary btn-sm mb-2">English</a>
+                        <a th:href="@{?lang=es}" class="btn btn-dark btn-sm me-2 mb-2">Español</a>
+                        <a th:href="@{?lang=en}" class="btn btn-dark btn-sm mb-2">English</a>
                     </div>
                 </div>
                 <div class="text-center border-top pt-3 mt-3">

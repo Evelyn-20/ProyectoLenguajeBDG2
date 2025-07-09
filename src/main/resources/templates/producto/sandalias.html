@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Zapatos</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+
+        <header th:replace="~{layout/plantilla :: header}"/>
+
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold display-6">Sandalias</h2>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/sandalia_urbana.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Sandalias Urbanas"/>
+                            <div class="card-body text-center d-flex flex-column">
+                                <h5 class="card-title">Sandalias Urbanas</h5>
+                                <p class="card-text">Sandalias de cuero vegano con tiras ajustables y suela cómoda.</p>
+                                <p class="card-text"><strong>Material:</strong> Cuero vegano</p>
+                                <p class="card-text"><strong>Precio:</strong> ₡24,500</p>
+                                <p class="card-text"><strong>Disponibles:</strong> 25</p>
+                                <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/sandalia_minimalista.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Sandalias Minimalistas">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Sandalias Minimalistas</h5>
+                                    <p class="card-text">Diseño elegante en tonos neutros, perfectas para cualquier ocasión.</p>
+                                    <p class="card-text"><strong>Material:</strong> Sintético</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡19,900</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 30</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/sandalia_plataforma.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Sandalias Plataforma">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Sandalias Plataforma</h5>
+                                    <p class="card-text">Plataforma ligera con tiras de tela y diseño moderno.</p>
+                                    <p class="card-text"><strong>Material:</strong> Tela y goma</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡28,750</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 15</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

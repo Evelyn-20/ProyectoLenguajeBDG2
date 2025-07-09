@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Mujer</title>
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+
+        <header th:replace="~{layout/plantilla :: header}"/>
+
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5 fw-bold display-6">Pantalones para Mujer</h2>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/pantalon_palazzo.jpg}" class="card-img-top rounded-top-4" style="height: 550px; object-fit: cover;" alt="Pantalón Palazzo Mujer">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Pantalón Palazzo Mujer</h5>
+                                    <p class="card-text">Pantalón amplio y fluido, ideal para un estilo elegante y cómodo.</p>
+                                    <p class="card-text"><strong>Material:</strong> Viscosa</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡29,500</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 24</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/pantalon_cargo_mujer.jpg}" class="card-img-top rounded-top-4" style="height: 550px; object-fit: cover;" alt="Pantalón Cargo Mujer">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Pantalón Cargo Mujer</h5>
+                                    <p class="card-text">Pantalón con bolsillos funcionales, ideal para un look casual y moderno.</p>
+                                    <p class="card-text"><strong>Material:</strong> Algodón elástico</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡27,800</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 20</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>

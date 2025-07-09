@@ -3,34 +3,73 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>Nous - Moda Femenina</title>
+        <title>Nous - Tenis de Moda</title>
     </head>
     <body class="d-flex flex-column min-vh-100 bg-light">
-        
+
         <header th:replace="~{layout/plantilla :: header}"/>
-        
+
         <section class="py-5">
             <div class="container">
-                <h2 class="text-center mb-5 fw-bold display-6">Nuevas Tendencias</h2>
+                <h2 class="text-center mb-5 fw-bold display-6">New Arrivals</h2>
 
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <!-- Producto 1 -->
                     <div class="col">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://static.zara.net/photos///2024/V/0/1/p/8747/529/800/2/w/750/8747529800_6_1_1.jpg?ts=1713270308056" class="card-img-top rounded-top-4" alt="Vestido negro con abertura">
+                            <img th:src="@{/img/urban_sleek.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Vestido negro minimalista">
                                 <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Vestido Cut-Out Negro</h5>
-                                    <p class="card-text">Vestido ajustado con abertura lateral y escote redondo.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $39.99</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 15</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: MediumVioletRed;">Añadir al carrito</a>
+                                    <h5 class="card-title">Urban Sleek</h5>
+                                    <p class="card-text">Vestido negro ajustado con escote asimétrico y estilo minimalista, perfecto para looks monocromáticos.</p>
+                                    <p class="card-text"><strong>Material:</strong> Poliéster y spandex</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡29,900</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 30</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/demin_shirt.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Vestido camisero de mezclilla">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Denim Shirt Dress</h5>
+                                    <p class="card-text">Vestido camisero de mezclilla clara con cinturón, estilo casual chic ideal para el día a día.</p>
+                                    <p class="card-text"><strong>Material:</strong> Mezclilla 100% algodón</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡31,500</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 10</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/graphic_flow.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Vestido con estampado gráfico">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Graphic Flow</h5>
+                                    <p class="card-text">Vestido midi con estampado gráfico abstracto y tela fluida. Una prenda statement con actitud.</p>
+                                    <p class="card-text"><strong>Material:</strong> Viscosa</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡34,000</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 12</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/minimal_cream.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Vestido blanco con detalle fruncido">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Minimal Cream</h5>
+                                    <p class="card-text">Vestido blanco claro con detalle fruncido en el centro, ideal para un look relajado y moderno.</p>
+                                    <p class="card-text"><strong>Material:</strong> Algodón y poliéster</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡27,500</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 25</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
                                 </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>

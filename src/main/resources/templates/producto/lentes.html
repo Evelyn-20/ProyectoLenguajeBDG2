@@ -3,33 +3,60 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>Nous - Moda Femenina</title>
+        <title>Nous - Accesorios</title>
     </head>
     <body class="d-flex flex-column min-vh-100 bg-light">
-        
+
         <header th:replace="~{layout/plantilla :: header}"/>
-        
+
         <section class="py-5">
             <div class="container">
-                <h2 class="text-center mb-5 fw-bold display-6">Nuevas Tendencias</h2>
+                <h2 class="text-center mb-5 fw-bold display-6">Lentes de Sol & Moda</h2>
 
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <div class="col">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://static.pullandbear.net/2/photos//2024/I/0/1/p/9237320/505/9237320505_2_5_8.jpg?t=1715863360104" class="card-img-top rounded-top-4" alt="Blusa con estampado retro">
+                            <img th:src="@{/img/lentes_aviador.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Lentes aviador clásicos negros">
                                 <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Blusa Retro Print</h5>
-                                    <p class="card-text">Blusa entallada con estampado psicodélico y cuello subido.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $24.95</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 20</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: MediumVioletRed;">Añadir al carrito</a>
+                                    <h5 class="card-title">Lentes Aviador Clásicos</h5>
+                                    <p class="card-text">Marco metálico con lentes oscuros, diseño icónico para cualquier ocasión.</p>
+                                    <p class="card-text"><strong>Material:</strong> Metal y policarbonato</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡27,000</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 30</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/lentes_redondos.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Lentes redondos negros">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Lentes Redondos Fashion</h5>
+                                    <p class="card-text">Diseño vintage con marco negro mate y lentes polarizados.</p>
+                                    <p class="card-text"><strong>Material:</strong> Acetato y lentes polarizados</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡32,400</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 25</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/lentes_cat.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Lentes de sol estilo cat eye rosas">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Lentes Cat Eye Rosas</h5>
+                                    <p class="card-text">Elegantes y femeninos, marco rosa pastel con lentes degradados.</p>
+                                    <p class="card-text"><strong>Material:</strong> Policarbonato</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡29,500</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 18</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
                                 </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>

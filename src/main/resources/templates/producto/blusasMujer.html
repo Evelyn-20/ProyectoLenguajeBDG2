@@ -3,33 +3,86 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>Nous - Moda Femenina</title>
+        <title>Nous - Mujer</title>
     </head>
     <body class="d-flex flex-column min-vh-100 bg-light">
-        
+
         <header th:replace="~{layout/plantilla :: header}"/>
-        
+
         <section class="py-5">
             <div class="container">
-                <h2 class="text-center mb-5 fw-bold display-6">Nuevas Tendencias</h2>
+                <h2 class="text-center mb-5 fw-bold display-6">Blusas & Camisetas</h2>
 
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <div class="col">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img src="https://static.pullandbear.net/2/photos//2024/I/0/1/p/9237320/505/9237320505_2_5_8.jpg?t=1715863360104" class="card-img-top rounded-top-4" alt="Blusa con estampado retro">
+                            <img th:src="@{/img/retro_pop.jpg}" class="card-img-top rounded-top-4" alt="Blusa retro moderna" style="height: 450px; object-fit: cover;">
                                 <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Blusa Retro Print</h5>
-                                    <p class="card-text">Blusa entallada con estampado psicodélico y cuello subido.</p>
-                                    <p class="card-text"><strong>Precio:</strong> $24.95</p>
+                                    <h5 class="card-title">Retro Pop</h5>
+                                    <p class="card-text">Blusa crop ajustada con print psicodélico.</p>
+                                    <p class="card-text"><strong>Material:</strong> Poliéster elástico</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡13,500</p>
                                     <p class="card-text"><strong>Disponibles:</strong> 20</p>
-                                    <a href="#" class="btn px-3 rounded-3 text-white" style="background-color: MediumVioletRed;">Añadir al carrito</a>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/black_silk.jpg}" class="card-img-top rounded-top-4" alt="Blusa satinada negra" style="height: 450px; object-fit: cover;">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Black Silk Touch</h5>
+                                    <p class="card-text">Top satinado negro con tirantes finos, ideal para salidas nocturnas.</p>
+                                    <p class="card-text"><strong>Material:</strong> Satén sintético</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡16,200</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 18</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/mesh_vibe.jpg}" class="card-img-top rounded-top-4" alt="Blusa de malla" style="height: 450px; object-fit: cover;">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Mesh Vibe</h5>
+                                    <p class="card-text">Top de malla semi-transparente con print abstracto y mangas largas.</p>
+                                    <p class="card-text"><strong>Material:</strong> Malla de nylon</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡14,300</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 22</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/cloudy_day.jpg}" class="card-img-top rounded-top-4" alt="Blusa blanca con volumen" style="height: 450px; object-fit: cover;">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Cloudy Day</h5>
+                                    <p class="card-text">Blusa blanca con mangas abullonadas y textura ligera, estilo romántico.</p>
+                                    <p class="card-text"><strong>Material:</strong> Algodón</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡17,200</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 16</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm rounded-4 border-0">
+                            <img th:src="@{/img/urban_cut.jpg}" class="card-img-top rounded-top-4" alt="Top sin mangas streetwear" style="height: 450px; object-fit: cover;">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="card-title">Urban Cut</h5>
+                                    <p class="card-text">Top sin mangas con hombros marcados, ideal para looks streetwear minimalistas.</p>
+                                    <p class="card-text"><strong>Material:</strong> Algodón y elastano</p>
+                                    <p class="card-text"><strong>Precio:</strong> ₡15,200</p>
+                                    <p class="card-text"><strong>Disponibles:</strong> 19</p>
+                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
                                 </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>
