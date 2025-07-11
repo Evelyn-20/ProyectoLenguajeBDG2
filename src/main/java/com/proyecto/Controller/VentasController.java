@@ -7,17 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-public class CarritoController {
+public class VentasController {
     
-    @GetMapping("/ventas/listado")
+    @GetMapping("/venta/listado")
     public String verListado(Model model) {
         model.addAttribute("ventas", new Carrito());
-        return "carrito/listadoVentas";
+        return "usuario/listadoProveedor";
     }
-
-    @GetMapping("/historialCompras")
-    public String verHistorialCompras(Model model) {
-        model.addAttribute("historial", new Carrito());
-        return "carrito/historialCompras";
-    }
+    
 }

@@ -27,6 +27,30 @@
                                     </div>
                                 </div>
                                 
+                                <!-- Barra de búsqueda -->
+                                <div class="mb-5">
+                                    <form th:action="@{/producto/buscar}" method="get" class="row g-3 align-items-end">
+                                        <div class="col-md-10">
+                                            <div class="form-floating">
+                                                <input type="text" 
+                                                       class="form-control rounded-3" 
+                                                       id="busqueda" 
+                                                       name="busqueda" 
+                                                       th:value="${busqueda}"
+                                                       placeholder="Buscar productos...">
+                                                <label for="busqueda" class="text-muted">
+                                                    <i class="fas fa-search me-2"></i>Buscar productos...
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-dark w-100 px-4 py-3 rounded-3 text-white fw-bold text-uppercase">
+                                                <i class="fas fa-search me-2"></i>Buscar
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
                                 <!-- Mostrar productos si existen -->
                                 <div th:if="${productos != null and !productos.empty}">
                                     <div class="table-responsive">

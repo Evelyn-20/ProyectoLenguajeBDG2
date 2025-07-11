@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>Nous - Listado de Ventas</title>
+        <title>Nous - Historial Compras</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     </head>
@@ -19,7 +19,7 @@
                                 <div class="card-body p-5">
                                     <!-- Encabezado con botón agregar -->
                                     <div class="d-flex justify-content-between align-items-center mb-5">
-                                        <h2 class="fw-bold display-6 mb-0">Listado de Ventas</h2>
+                                        <h2 class="fw-bold display-6 mb-0">Historial Compras</h2>
                                     </div>
 
                                     <!-- Barra de búsqueda -->
@@ -32,9 +32,9 @@
                                                         id="busqueda" 
                                                         name="busqueda" 
                                                         th:value="${busqueda}"
-                                                        placeholder="Buscar ventas...">
+                                                        placeholder="Buscar compras...">
                                                     <label for="busqueda" class="text-muted">
-                                                        <i class="fas fa-search me-2"></i>Buscar ventas...
+                                                        <i class="fas fa-search me-2"></i>Buscar compras...
                                                     </label>
                                                 </div>
                                             </div>
@@ -65,7 +65,6 @@
                                                         <th scope="col" class="fw-semibold py-3 px-4">Total</th>
                                                         <th scope="col" class="fw-semibold py-3 px-4">Medio Pago</th>
                                                         <th scope="col" class="fw-semibold py-3 px-4">Estado</th>
-                                                        <th scope="col" class="fw-semibold py-3 px-4 text-center">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -85,21 +84,6 @@
                                                         <td class="py-3 px-4">
                                                             <span th:class="${venta.activo} ? 'badge bg-success rounded-3' : 'badge bg-secondary rounded-3'"
                                                                 th:text="${venta.activo} ? 'Activo' : 'Inactivo'"></span>
-                                                        </td>
-                                                        <td class="py-3 px-4 text-center">
-                                                            <div class="btn-group" role="group">
-                                                                <a th:href="@{/venta/modificar/}+${venta.idVenta}"
-                                                                    class="btn btn-sm btn-outline-primary rounded-3 me-1"
-                                                                    title="Editar venta">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                                <a th:href="@{/venta/eliminar/}+${venta.idVenta}"
-                                                                    class="btn btn-sm btn-outline-danger rounded-3"
-                                                                    title="Eliminar venta"
-                                                                    onclick="return confirm('¿Estás seguro de eliminar este venta?')">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </a>
-                                                            </div>
                                                         </td>
                                                     </tr>
                                                 </tbody>
