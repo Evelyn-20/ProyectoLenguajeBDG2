@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Listado de Ventas</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+                </head>
+                <body class="d-flex flex-column min-vh-100 bg-light">
+
+                    <header th:replace="~{layout/plantilla :: header}"></header>
+
+                    <section class="py-5">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-12">
+                                    <div class="card shadow-sm rounded-4 border-0">
+                                        <div class="card-body p-5">
+                                            <!-- Encabezado con botón agregar -->
+                                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                                <h2 class="fw-bold display-6 mb-0">Listado de Ventas</h2>
+                                            </div>
+
+                                            <!-- Mostrar ventas si existen -->
+                                            <div th:if="${ventas != null and !ventas.empty}">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-borderless">
+                                                        <thead class="table-light">
+                                                            <tr>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">#</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Código</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Cliente</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Fecha</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Productos</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Precio Unitario</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Cantidad</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Subtotal</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Descuento</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Impuesto</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Total</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Medio Pago</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4">Estado</th>
+                                                                <th scope="col" class="fw-semibold py-3 px-4 text-center">Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr th:each="venta, contador : ${ventas}" class="border-0">
+                                                                <td class="py-3 px-4">[[${contador.count}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.codigo}]]</td>
+                                                                <td class="py-3 px-4 fw-semibold">[[${venta.cliente}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.fecha}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.productos}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.precio_unitario}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.cantidad}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.subtotal}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.descuento}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.impuesto}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.total}]]</td>
+                                                                <td class="py-3 px-4">[[${venta.medio_pago}]]</td>
+                                                                <td class="py-3 px-4">
+                                                                    <span th:class="${venta.activo} ? 'badge bg-success rounded-3' : 'badge bg-secondary rounded-3'"
+                                                                          th:text="${venta.activo} ? 'Activo' : 'Inactivo'"></span>
+                                                                </td>
+                                                                <td class="py-3 px-4 text-center">
+                                                                    <div class="btn-group" role="group">
+                                                                        <a th:href="@{/venta/modificar/}+${venta.idVenta}"
+                                                                           class="btn btn-sm btn-outline-primary rounded-3 me-1"
+                                                                           title="Editar venta">
+                                                                            <i class="fas fa-edit"></i>
+                                                                        </a>
+                                                                        <a th:href="@{/venta/eliminar/}+${venta.idVenta}"
+                                                                           class="btn btn-sm btn-outline-danger rounded-3"
+                                                                           title="Eliminar venta"
+                                                                           onclick="return confirm('¿Estás seguro de eliminar este venta?')">
+                                                                            <i class="fas fa-trash"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <!-- Mensaje cuando no hay ventas -->
+                                            <div class="text-center py-5" th:if="${ventas == null or ventas.empty}">
+                                                <div class="mb-4">
+                                                    <i class="fas fa-box-open fa-4x text-muted"></i>
+                                                </div>
+                                                <h4 class="fw-bold mb-3">No hay ventas registrados</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <footer th:replace="~{layout/plantilla :: footer}"></footer>
+
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                </body>
+                </html>

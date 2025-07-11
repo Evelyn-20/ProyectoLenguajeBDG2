@@ -4,6 +4,7 @@ import com.proyecto.Domain.Producto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class ProductoController {
@@ -136,6 +137,20 @@ public class ProductoController {
 
     @GetMapping("/producto/modificar")
     public String modificar(Model model) {
+        // Crear un producto vacío para el formulario
+        model.addAttribute("producto", new Producto());
+        return "producto/modificar";
+    }
+
+    // O si quieres modificar un producto específico por ID:
+    @GetMapping("/producto/modificar/{id}")
+    public String modificar(@PathVariable Long id, Model model) {
+        // Aquí buscarías el producto por ID desde tu servicio/repositorio
+        // Producto producto = productoService.findById(id);
+
+        // Por ahora, creamos uno vacío
+        Producto producto = new Producto();
+        model.addAttribute("producto", producto);
         return "producto/modificar";
     }
     
