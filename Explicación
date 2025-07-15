@@ -1,0 +1,63 @@
+Documentación del Proyecto de Lenguaje de Bases de Datos (Spring Boot + Oracle)
+1. Estructura del Proyecto
+El proyecto está desarrollado con Spring Boot, empleando Thymeleaf como motor de plantillas y Oracle como sistema gestor de base de datos. Se enfoca en la gestión de productos, clientes, proveedores, categorías y ventas, con el uso de procedimientos almacenados y vistas.
+Archivos relevantes:
+.gitattributes y .gitignore: controlan el comportamiento de git en diferentes IDEs (STS, IntelliJ, NetBeans, VS Code).
+pom.xml: archivo de configuración del proyecto Maven, que contiene las dependencias necesarias.
+2. Base de Datos: Procedimientos Almacenados y Vistas
+2.1 Tablas principales:
+producto
+categoria
+cliente
+proveedor
+venta
+asociacion_proveedor_producto
+2.2 Procedimientos
+Producto
+registrar_producto: inserta un nuevo producto.
+consultar_producto: retorna información de un producto específico.
+actualizar_producto: modifica la información del producto según su código.
+deshabilitar_producto: cambia su estado a "Inactivo".
+Categoría
+registrar_categoria, actualizar_categoria, deshabilitar_categoria
+Cliente
+registrar_cliente: incluye el hash de contraseña con DBMS_CRYPTO.
+2 / 3
+actualizar_cliente, deshabilitar_cliente
+Proveedor
+registrar_proveedor, actualizar_proveedor, deshabilitar_proveedor
+Venta
+registrar_venta: incluye retorno de ID de venta.
+cambiar_estado_venta
+2.3 Vistas
+vista_productos_activos: productos activos con su categoría.
+vista_clientes_activos, vista_proveedores_activos
+vista_asociaciones_productos_proveedores: productos y sus proveedores activos.
+vista_historial_compras_por_cliente: historial de ventas de cada cliente.
+3. Backend Spring Boot
+Dependencias principales:
+spring-boot-starter-data-jpa: integración con JPA (Hibernate)
+spring-boot-starter-thymeleaf: renderización de vistas HTML
+spring-boot-starter-web: para construir APIs REST
+lombok: reduce código repetitivo con anotaciones
+webjars: manejo de recursos frontend (Bootstrap)
+Estructura de código Java (por cada entidad como Producto, Cliente, etc.):
+Entidad: clase con anotaciones @Entity
+Repositorio: interfaz que extiende JpaRepository
+Servicio: clase @Service que encapsula la lógica de negocio
+Controlador: clase @Controller o @RestController para manejar peticiones
+Vista: archivo .html con sintaxis Thymeleaf (por ejemplo, lista.html)
+Funciones implementadas:
+Listar productos activos
+Registrar productos (con llamada a procedimiento almacenado)
+Deshabilitar productos (lógica desde Spring hacia procedimiento Oracle)
+3 / 3
+4. Maven: Archivo pom.xml
+El archivo pom.xml gestiona todas las dependencias necesarias para compilar, construir y ejecutar el proyecto correctamente.
+Plugins configurados:
+maven-compiler-plugin: compila con soporte para anotaciones de Lombok.
+spring-boot-maven-plugin: empaqueta el proyecto como una aplicación ejecutable Spring Boot.
+5. Notas adicionales
+La base de datos emplea secuencias (producto_seq, cliente_seq, etc.) para generar IDs automáticos.
+El manejo de contraseñas en cliente utiliza hashing con DBMS_CRYPTO, lo cual mejora la seguridad.
+El sistema está preparado para escalar e incluir módulos como ventas, asociaciones proveedor-producto, y más.
