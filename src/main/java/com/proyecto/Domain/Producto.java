@@ -3,11 +3,13 @@ package com.proyecto.Domain;
 public class Producto {
 
     private Long idProducto;
+    private String codigo;
     private String nombre;
     private String descripcion;
     private String detalle;
-    private String genero;
     private String material;
+    private String categoria;
+    private Long categoriaId;
     private String talla;
     private String color;
     private int stockActual;
@@ -17,6 +19,9 @@ public class Producto {
     private String rutaImagen;
     private int disponibles;
 
+    // Constructor vacío
+    public Producto() {}
+
     // Getters y Setters
     public Long getIdProducto() {
         return idProducto;
@@ -24,6 +29,14 @@ public class Producto {
 
     public void setIdProducto(Long idProducto) {
         this.idProducto = idProducto;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getNombre() {
@@ -50,20 +63,28 @@ public class Producto {
         this.detalle = detalle;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
     public String getMaterial() {
         return material;
     }
 
     public void setMaterial(String material) {
         this.material = material;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     public String getTalla() {
