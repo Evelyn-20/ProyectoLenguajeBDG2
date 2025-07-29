@@ -274,6 +274,22 @@ BEGIN
 END;
 /
 
+/*Habilitar cliente*/
+CREATE OR REPLACE PROCEDURE habilitar_cliente (
+    p_cedula IN VARCHAR2
+)
+IS
+BEGIN
+    UPDATE CLIENTE
+       SET ESTADO = 'Activo'
+     WHERE CEDULA = p_cedula;
+
+    IF SQL%ROWCOUNT = 0 THEN
+        RAISE_APPLICATION_ERROR(-20010, 'Cliente no encontrado');
+    END IF;
+END;
+/
+
 --------------------------------------------------------------------------------
 /*Proveedor/
 --------------------------------------------------------------------------------
@@ -405,19 +421,19 @@ WHERE
     p.ESTADO = 'Activo';
 
 --------------------------------------------------------------------------------
--- Vista que muestra todos los clientes activos
-CREATE OR REPLACE VIEW vista_clientes_activos AS
+-- Vista que muestra todos los clientes
+CREATE OR REPLACE VIEW vista_clientes AS
 SELECT 
+    ID_CLIENTE,
     CEDULA,
     NOMBRE,
     APELLIDOS,
     EMAIL,
     TELEFONO,
-    DIRECCION
+    DIRECCION,
+    ESTADO
 FROM 
-    CLIENTE
-WHERE 
-    ESTADO = 'Activo';
+    CLIENTE;
 
 --------------------------------------------------------------------------------
 -- Vista que muestra todos los proveedores activos
