@@ -9,7 +9,7 @@ public class Cliente {
     private String telefono;
     private String direccion;
     private String contrasena;
-    private boolean activo;
+    private String estado;
     
     // Getters y Setters
     public Long getIdCliente() {
@@ -76,11 +76,16 @@ public class Cliente {
         this.contrasena = contrasena;
     }
     
-    public boolean isActivo() {
-        return activo;
+    public String getEstado() {
+        return estado;
     }
     
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    // Método conveniente para verificar si está activo
+    public boolean isActivo() {
+        return "Activo".equalsIgnoreCase(this.estado);
     }
 }
