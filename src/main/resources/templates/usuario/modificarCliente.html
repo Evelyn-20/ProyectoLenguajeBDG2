@@ -17,9 +17,11 @@
                             <div class="card-body p-5">
                                 <h2 class="text-center mb-5 fw-bold display-6">Actualizar Cliente</h2>
                                 
-                                <form th:action="@{/cliente/modificar}" method="post" th:object="${cliente}">
+                                <form th:action="@{/cliente/actualizar}" th:object="${cliente}"
+                                      method="POST">
+                                    
                                     <!-- Campo oculto para el ID -->
-                                    <<input type="text" th:field="*{idCliente}" />
+                                    <input type="hidden" th:field="*{id}" name="id"/>
                                     
                                     <div class="mb-4">
                                         <label for="cedula" class="form-label fw-semibold">Cédula</label>
