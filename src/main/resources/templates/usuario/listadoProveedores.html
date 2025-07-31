@@ -5,12 +5,12 @@
     <head th:replace="~{layout/plantilla :: head}">
         <title>Nous - Listado de Proveedores</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     </head>
     <body class="d-flex flex-column min-vh-100 bg-light">
-        
+
         <header th:replace="~{layout/plantilla :: header}"></header>
-        
+
         <section class="py-5">
             <div class="container">
                 <div class="row justify-content-center">
@@ -22,36 +22,30 @@
                                     <h2 class="fw-bold display-6 mb-0">Listado de Proveedores</h2>
                                     <div sec:authorize="hasRole('ROLE_ADMIN')">   
                                         <a th:href="@{/proveedor/agregar}" class="btn btn-dark px-4 py-3 rounded-3 text-white fw-bold text-uppercase">
-                                            <i class="fas fa-plus me-2"></i>Agregar Proveedor
+                                            <i class="bi bi-plus-lg me-2"></i>Agregar Proveedor
                                         </a>
                                     </div>
                                 </div>
-                                
-                                <!-- Barra de búsqueda -->
+
+                                <!-- Barra de búsqueda con búsqueda automática -->
                                 <div class="mb-5">
-                                    <form th:action="@{/producto/buscar}" method="get" class="row g-3 align-items-end">
-                                        <div class="col-md-10">
-                                            <div class="form-floating">
-                                                <input type="text" 
-                                                       class="form-control rounded-3" 
-                                                       id="busqueda" 
-                                                       name="busqueda" 
-                                                       th:value="${busqueda}"
-                                                       placeholder="Buscar proveedores...">
-                                                <label for="busqueda" class="text-muted">
-                                                    <i class="fas fa-search me-2"></i>Buscar proveedores...
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button type="submit" class="btn btn-dark w-100 px-4 py-3 rounded-3 text-white fw-bold text-uppercase">
-                                                <i class="fas fa-search me-2"></i>Buscar
-                                            </button>
+                                    <form id="searchForm" th:action="@{/proveedor/listado}" method="get">
+                                        <div class="form-floating">
+                                            <input type="text" 
+                                                   class="form-control rounded-3" 
+                                                   id="busqueda" 
+                                                   name="busqueda" 
+                                                   th:value="${busqueda}"
+                                                   placeholder="Buscar proveedores..."
+                                                   oninput="debounceSearch()">
+                                            <label for="busqueda" class="text-muted">
+                                                <i class="bi bi-search me-2"></i>Buscar por nombre, apellido o cédula...
+                                            </label>
                                         </div>
                                     </form>
                                 </div>
-                                
-                                <!-- Mostrar proveedores si existen -->
+
+                                <!-- Resto del contenido permanece igual -->
                                 <div th:if="${proveedores != null and !proveedores.empty}">
                                     <div class="table-responsive">
                                         <table class="table table-hover table-borderless">
@@ -62,8 +56,8 @@
                                                     <th scope="col" class="fw-semibold py-3 px-4">Nombre</th>
                                                     <th scope="col" class="fw-semibold py-3 px-4">Apellidos</th>
                                                     <th scope="col" class="fw-semibold py-3 px-4">Email</th>
-                                                    <th scope="col" class="fw-semibold py-3 px-4">Telefono</th>
-                                                    <th scope="col" class="fw-semibold py-3 px-4">Direccion</th>
+                                                    <th scope="col" class="fw-semibold py-3 px-4">Teléfono</th>
+                                                    <th scope="col" class="fw-semibold py-3 px-4">Dirección</th>
                                                     <th scope="col" class="fw-semibold py-3 px-4">Estado</th>
                                                     <th scope="col" class="fw-semibold py-3 px-4 text-center">Acciones</th>
                                                 </tr>
@@ -78,21 +72,34 @@
                                                     <td class="py-3 px-4">[[${proveedor.telefono}]]</td>
                                                     <td class="py-3 px-4">[[${proveedor.direccion}]]</td>
                                                     <td class="py-3 px-4">
-                                                        <span th:class="${proveedor.activo} ? 'badge bg-success rounded-3' : 'badge bg-secondary rounded-3'"
-                                                              th:text="${proveedor.activo} ? 'Activo' : 'Inactivo'"></span>
+                                                        <span th:class="${proveedor.estado == 'Activo'} ? 'badge bg-success rounded-pill' : 'badge bg-secondary rounded-pill'"
+                                                              th:text="${proveedor.estado}"></span>
                                                     </td>
                                                     <td class="py-3 px-4 text-center">
                                                         <div class="btn-group" role="group">
+                                                            <!-- Botón Editar -->
                                                             <a th:href="@{/proveedor/modificar/}+${proveedor.idProveedor}"
                                                                class="btn btn-sm btn-outline-primary rounded-3 me-1"
                                                                title="Editar proveedor">
-                                                                <i class="fas fa-edit"></i>
+                                                                <i class="bi bi-pencil-square"></i>
                                                             </a>
-                                                            <a th:href="@{/proveedor/eliminar/}+${proveedor.idProveedor}"
-                                                               class="btn btn-sm btn-outline-danger rounded-3"
-                                                               title="Eliminar proveedor"
-                                                               onclick="return confirm('¿Estás seguro de eliminar este proveedor?')">
-                                                                <i class="fas fa-trash"></i>
+                                                            
+                                                            <!-- Botón Desactivar (solo si está activo) -->
+                                                            <a th:if="${proveedor.estado == 'Activo'}"
+                                                               th:href="@{/proveedor/desactivar/}+${proveedor.idProveedor}"
+                                                               class="btn btn-sm btn-outline-warning rounded-3 me-1"
+                                                               title="Desactivar proveedor"
+                                                               onclick="return confirm('¿Estás seguro de que deseas desactivar este proveedor?')">
+                                                                <i class="bi bi-slash-circle"></i>
+                                                            </a>
+                                                            
+                                                            <!-- Botón Activar (solo si está inactivo) -->
+                                                            <a th:if="${proveedor.estado != 'Activo'}"
+                                                               th:href="@{/proveedor/activar/}+${proveedor.idProveedor}"
+                                                               class="btn btn-sm btn-outline-success rounded-3 me-1"
+                                                               title="Activar proveedor"
+                                                               onclick="return confirm('¿Estás seguro de que deseas activar este proveedor?')">
+                                                                <i class="bi bi-check-circle"></i>
                                                             </a>
                                                         </div>
                                                     </td>
@@ -105,9 +112,25 @@
                                 <!-- Mensaje cuando no hay proveedores -->
                                 <div class="text-center py-5" th:if="${proveedores == null or proveedores.empty}">
                                     <div class="mb-4">
-                                        <i class="fas fa-box-open fa-4x text-muted"></i>
+                                        <i class="bi bi-truck text-muted" style="font-size: 4rem;"></i>
                                     </div>
-                                    <h4 class="fw-bold mb-3">No hay proveedores registrados</h4>
+                                    <h4 class="fw-bold mb-3" th:if="${busqueda != null and !busqueda.isEmpty()}">
+                                        No se encontraron proveedores
+                                    </h4>
+                                    <h4 class="fw-bold mb-3" th:if="${busqueda == null or busqueda.isEmpty()}">
+                                        No hay proveedores registrados
+                                    </h4>
+                                    <p class="text-muted mb-4" th:if="${busqueda != null and !busqueda.isEmpty()}">
+                                        No se encontraron proveedores que coincidan con: "<strong th:text="${busqueda}"></strong>"
+                                    </p>
+                                    <p class="text-muted mb-4" th:if="${busqueda == null or busqueda.isEmpty()}">
+                                        Comienza agregando tu primer proveedor al sistema.
+                                    </p>
+                                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <a th:href="@{/proveedor/agregar}" class="btn btn-dark px-4 py-2">
+                                            <i class="bi bi-plus-lg me-2"></i>Agregar primer proveedor
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -115,9 +138,19 @@
                 </div>
             </div>
         </section>
-        
+
         <footer th:replace="~{layout/plantilla :: footer}"></footer>
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script>
+            // Función para búsqueda con debounce
+            let searchTimeout;
+            function debounceSearch() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    document.getElementById('searchForm').submit();
+                }, 500); // 500ms de retraso después de la última tecla presionada
+            }
+        </script>
     </body>
 </html>

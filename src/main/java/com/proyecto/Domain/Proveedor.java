@@ -2,12 +2,13 @@ package com.proyecto.Domain;
 
 public class Proveedor {
     private Long idProveedor;
+    private String cedula;
     private String nombre;
     private String apellidos;
     private String email;
     private String telefono;
     private String direccion;
-    private boolean activo;
+    private String estado; // Cambiado de boolean a String para coincidir con la BD
     
     // Getters y Setters
     public Long getIdProveedor() {
@@ -16,6 +17,14 @@ public class Proveedor {
     
     public void setIdProveedor(Long idProveedor) {
         this.idProveedor = idProveedor;
+    }
+    
+    public String getCedula() {
+        return cedula;
+    }
+    
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
     
     public String getNombre() {
@@ -58,11 +67,16 @@ public class Proveedor {
         this.direccion = direccion;
     }
     
-    public boolean isActivo() {
-        return activo;
+    public String getEstado() {
+        return estado;
     }
     
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    // Método conveniente para verificar si está activo
+    public boolean isActivo() {
+        return "Activo".equalsIgnoreCase(this.estado);
     }
 }
