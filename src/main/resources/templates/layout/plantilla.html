@@ -34,8 +34,6 @@
                             </ul>
                         </div>
 
-                        <a class="text-decoration-none text-dark fw-medium" th:href="@{/aboutus/about_us}">Sobre Nosotros</a>
-
                         <!-- Solo visible para administradores -->
                         <div sec:authorize="hasRole('ROLE_ADMIN')" class="d-flex align-items-center gap-4">
 
@@ -78,6 +76,11 @@
                         </ul>
 
                         <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+                            <li class="nav-item" sec:authorize="!hasRole('ROLE_ADMIN')">
+                                <a class="btn btn-light px-4 py-2 d-flex align-items-center gap-2" th:href="@{/cliente/perfil}">
+                                    <i class="bi bi-person-circle"></i> Mi Perfil
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <form method="post" th:action="@{/logout}">
                                     <button class="btn btn-light px-4 py-2 d-flex align-items-center gap-2" type="submit">

@@ -17,20 +17,30 @@
                             <div class="card-body p-5">
                                 <h2 class="text-center mb-5 fw-bold display-6">Iniciar Sesión</h2>
                                 
+                                <!-- Mostrar mensajes de éxito/error -->
+                                <div th:if="${param.success}" class="alert alert-success">
+                                    Registro exitoso. Por favor inicie sesión.
+                                </div>
+                                <div th:if="${param.error}" class="alert alert-danger">
+                                    Usuario o contraseña incorrectos.
+                                </div>
+                                
                                 <form th:action="@{/login}" method="POST">
                                     
                                     <div class="mb-4">
                                         <label for="username" class="form-label fw-semibold">Usuario</label>
                                         <input type="text" class="form-control rounded-3 py-2" 
                                                name="username" id="username" 
-                                               placeholder="Ingrese su usuario o email"/>
+                                               placeholder="Ingrese su usuario o email"
+                                               required/>
                                     </div>
                                     
                                     <div class="mb-4">
                                         <label for="password" class="form-label fw-semibold">Contraseña</label>
                                         <input type="password" class="form-control rounded-3 py-2" 
                                                name="password" id="password" 
-                                               placeholder="Ingrese su contraseña"/>
+                                               placeholder="Ingrese su contraseña"
+                                               required/>
                                     </div>
                                     
                                     <button type="submit" class="btn btn-dark px-4 py-3 rounded-3 text-white w-100 fw-bold text-uppercase mt-4">
@@ -40,13 +50,13 @@
                                 
                                 <div class="text-center mt-4">
                                     <div class="mb-2">
-                                        <a href="#" class="text-decoration-none text-secondary">
+                                        <a th:href="@{/recuperar-contrasena}" class="text-decoration-none text-secondary">
                                             ¿Olvidaste tu contraseña?
                                         </a>
                                     </div>
                                     <div>
                                         <span class="text-muted">¿No tienes cuenta?</span>
-                                        <a href="#" class="text-decoration-none fw-semibold">
+                                        <a th:href="@{/registro}" class="text-decoration-none fw-semibold">
                                             Regístrate aquí
                                         </a>
                                     </div>
