@@ -56,6 +56,7 @@ CONSTRAINT FK_VENTA_DETALLE FOREIGN KEY (VENTA_ID) REFERENCES VENTA (VENTA_ID),
 CONSTRAINT FK_INVENTARIO_DETALLE FOREIGN KEY (INVENTARIO_ID) REFERENCES INVENTARIO (INVENTARIO_ID));
 
 ALTER TABLE PRODUCTO ADD IMAGEN VARCHAR2(255);
+
 --------------------------------------------------------------------------------
 -- SECUENCIAS
 --------------------------------------------------------------------------------
@@ -67,3 +68,643 @@ CREATE SEQUENCE venta_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE asociacion_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE detalle_venta_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE inventario_seq START WITH 1 INCREMENT BY 1;
+
+-- Inserts para categorías principales
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (1, 100, 'Hombre', 'Ropa y accesorios para hombres', 'Inactivo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (2, 200, 'Mujer', 'Ropa y accesorios para mujeres', 'Inactivo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (3, 300, 'Zapatos', 'Calzado para hombres y mujeres', 'Inactivo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (4, 400, 'Accesorios', 'Complementos y accesorios de moda', 'Inactivo');
+
+-- Inserts para subcategorías de Hombre
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (5, 110, 'Camisas y Camisetas', 'Camisas y camisetas para hombre', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (6, 120, 'Pantalones', 'Pantalones para hombre', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (7, 130, 'Chaquetas y Sudaderas', 'Chaquetas y sudaderas para hombre', 'Activo');
+
+-- Inserts para subcategorías de Mujer
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (8, 210, 'Vestidos', 'Vestidos para mujer', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (9, 220, 'Blusas y Camisetas', 'Blusas y camisetas para mujer', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (10, 230, 'Faldas', 'Faldas para mujer', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (11, 240, 'Pantalones', 'Pantalones para mujer', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (12, 250, 'Chaquetas y Sudaderas', 'Chaquetas y sudaderas para mujer', 'Activo');
+
+-- Inserts para subcategorías de Zapatos
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (13, 310, 'Tennis', 'Zapatos deportivos y casuales', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (14, 320, 'Botas', 'Botas para hombre y mujer', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (15, 330, 'Zapatos Formales', 'Zapatos elegantes para ocasiones formales', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (16, 340, 'Sandalias', 'Sandalias para mujer', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (17, 350, 'Zapatos Casuales', 'Zapatos informales para el día a día', 'Activo');
+
+-- Inserts para subcategorías de Accesorios
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (18, 410, 'Bolsos y Mochilas', 'Bolsos y mochilas de moda', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (19, 420, 'Joyería', 'Joyas y accesorios de bisutería', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (20, 430, 'Gorras y Sombreros', 'Gorras y sombreros de moda', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (21, 440, 'Cinturones', 'Cinturones de cuero y moda', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (22, 450, 'Lentes', 'Gafas de sol y lentes de moda', 'Activo');
+
+INSERT INTO CATEGORIA (ID_CATEGORIA, CODIGO_CATEGORIA, NOMBRE_CATEGORIA, DESRIPCION_CATEGORIA, ESTADO) 
+VALUES (23, 460, 'Bufandas y Guantes', 'Bufandas y guantes para temporada fría', 'Activo');
+
+-- Productos de Camisas y Camisetas Hombre
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (1, 10001, 5, 'White Essential', 'Camisa blanca slim fit con cuello estructurado. Perfecta para 
+    looks elegantes.', 'Algodón', 'Activo', 'white_essencial.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (2, 10002, 5, 'Denim Blue Ease', 'Camisa relajada de mezclilla con botones de madera. Estilo 
+    effortless.', 'Mezclilla', 'Activo', 'demin_blue.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (3, 10003, 5, 'Plaid Mood', 'Camisa escocesa con tonos fríos y fit clásico. Casual con onda retro.',
+    'Franela', 'Activo', 'plaid_mood.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (4, 10004, 5, 'Polo Black Line', 'Polo minimalista en algodón piqué, ideal para outfits urbanos y 
+    casuales.', 'Algodón piqué', 'Activo', 'polo_black.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (5, 10005, 5, 'Natural Vibes', 'Camisa beige de lino, corte relajado y fresca para temporada cálida.', 
+    'Lino', 'Activo', 'natural_vibes.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (6, 10006, 5, 'Tropic Line', 'Camisa estampada de estilo relajado, ideal para fines de semana o escapadas.', 
+    'Algodón', 'Activo', 'tropic_line.jpg');
+
+-- Productos de Chaquetas y Sudaderas Hombre
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (7, 10007, 7, 'Blazer Iconic', 'Blazer estructurado negro con forro interior y corte elegante slim.',
+    'Poliéster con viscosa', 'Activo', 'blazer_iconic.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (8, 10008, 7, 'Leather Edge', 'Chaqueta tipo biker en cuero con cremalleras y diseño robusto.', 
+    'Cuero sintético', 'Activo', 'leather_edge.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (9, 10009, 7, 'Soft Knit', 'Cardigan gris claro con botones madera y diseño comfy para entretiempo.',
+    'Tejido acrílico', 'Activo', 'soft_knit.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (10, 10010, 7, 'Street Bomber', 'Bomber en tonos neutros con forro térmico y acabados elásticos.',
+    'Nylon y algodón', 'Activo', 'street_bomber.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (11, 10011, 7, 'Wool Overcoat', 'Abrigo largo en lana con doble botonadura, estilo europeo sobrio.',
+    'Lana', 'Activo', 'wool_overcoat.jpg');
+
+-- Productos de Pantalones Hombre
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (12, 10012, 6, 'Pantalón Formal', 'Pantalón de vestir en lana con raya diplomática y corte clásico.',
+    'Lana', 'Activo', 'pantalon_formal.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (13, 10013, 6, 'Chinos Beige', 'Pantalones chinos en algodón premium con corte regular y bolsillos.',
+    'Algodón', 'Activo', 'chinos_beige.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (14, 10014, 6, 'Pantalón Cargo', 'Pantalón militar con bolsillos laterales y tela resistente.', 
+    'Gabardina', 'Activo', 'pantalon_cargo.jpg');
+
+-- Productos de Vestidos Mujer
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (15, 20001, 8, 'Urban Sleek', 'Vestido negro ajustado con escote asimétrico y estilo minimalista,
+    perfecto para looks monocromáticos.', 'Poliéster y spandex', 'Activo', 'urban_sleek.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (16, 20002, 8, 'Denim Shirt Dress', 'Vestido camisero de mezclilla clara con cinturón, estilo 
+    casual chic ideal para el día a día.', 'Mezclilla 100% algodón', 'Activo', 'demin_shirt.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (17, 20003, 8, 'Graphic Flow', 'Vestido midi con estampado gráfico abstracto y tela fluida. Una
+    prenda statement con actitud.', 'Viscosa', 'Activo', 'graphic_flow.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (18, 20004, 8, 'Minimal Cream', 'Vestido blanco claro con detalle fruncido en el centro, ideal para
+    un look relajado y moderno.', 'Algodón y poliéster', 'Activo', 'minimal_cream.jpg');
+
+-- Productos de Blusas y Camisetas Mujer
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (19, 20005, 9, 'Retro Pop', 'Blusa crop ajustada con print psicodélico.', 'Poliéster elástico', 
+    'Activo', 'retro_pop.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (20, 20006, 9, 'Black Silk Touch', 'Top satinado negro con tirantes finos, ideal para salidas nocturnas.', 
+    'Satén sintético', 'Activo', 'black_silk.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (21, 20007, 9, 'Mesh Vibe', 'Top de malla semi-transparente con print abstracto y mangas largas.',
+    'Malla de nylon', 'Activo', 'mesh_vibe.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (22, 20008, 9, 'Cloudy Day', 'Blusa blanca con mangas abullonadas y textura ligera, estilo romántico.',
+    'Algodón', 'Activo', 'cloudy_day.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (23, 20009, 9, 'Urban Cut', 'Top sin mangas con hombros marcados, ideal para looks streetwear minimalistas.', 
+    'Algodón y elastano', 'Activo', 'urban_cut.jpg');
+
+-- Productos de Faldas Mujer
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (24, 20010, 10, 'Falda Satinada Rosa', 'Falda midi fluida con brillo sutil y talle alto. Perfecta 
+    para una salida nocturna.', 'Satén', 'Activo', 'falda_satinada.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (25, 20011, 10, 'Falda Tableada Urban', 'Falda corta de estilo colegial con pliegues marcados. 
+    Combinación perfecta con botas.', 'Poliéster', 'Activo', 'falda_tableada.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (26, 20012, 10, 'Falda Denim Raw', 'Falda de mezclilla con acabado raw-cut, bolsillos y botón metálico. 
+    Atemporal y versátil.', 'Mezclilla', 'Activo', 'falda_demin.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (27, 20013, 10, 'Falda Cargo Utility', 'Falda con bolsillos utilitarios, estilo urbano. Tiro bajo y
+    cierre con cremallera oculta.', 'Gabardina de algodón', 'Activo', 'falda_cargo.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (28, 20014, 10, 'Falda Asimétrica Noir', 'Falda negra corta con diseño asimétrico y cierre lateral.
+    Sofisticada y edgy.', 'Poliéster con elastano', 'Activo', 'falda_asimetrica.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (29, 20015, 10, 'Falda Drapeada Soft', 'Falda drapeada con tela fluida y suave. Ideal para un look chic
+    de día o noche.', 'Viscosa', 'Activo', 'falda_dropeada.jpg');
+
+-- Productos de Pantalones Mujer
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (30, 20016, 11, 'Pantalón Palazzo Mujer', 'Pantalón amplio y fluido, ideal para un estilo elegante
+    y cómodo.', 'Viscosa', 'Activo', 'pantalon_palazzo.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (31, 20017, 11, 'Pantalón Cargo Mujer', 'Pantalón con bolsillos funcionales, ideal para un look 
+    casual y moderno.', 'Algodón elástico', 'Activo', 'pantalon_cargo_mujer.jpg');
+
+-- Productos de Chaquetas y Sudaderas Mujer
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (32, 20018, 12, 'Chaqueta Denim Mujer', 'Chaqueta clásica de mezclilla con corte ajustado y detalles
+    modernos.', 'Mezclilla', 'Activo', 'chaqueta_demin.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (33, 20019, 12, 'Suéter de Punto Mujer', 'Suéter cálido y suave con diseño atemporal, ideal para 
+    cualquier ocasión.', 'Tejido acrílico suave', 'Activo', 'sueter_punto.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (34, 20020, 12, 'Sudadera con Capucha Mujer', 'Sudadera cómoda y casual, perfecta para un look 
+    relajado y moderno.', 'Algodón con mezcla de poliéster', 'Activo', 'sudadera_capucha.jpg');
+
+-- Productos de Tennis
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (35, 30001, 13, 'Tenis Blanco Clásico', 'Diseño minimalista con suela de goma y ajuste cómodo.', 
+    'Cuero sintético y goma', 'Activo', 'tennis_blanca.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (36, 30002, 13, 'Tenis Casual Grises', 'Combinan estilo y confort para uso diario.', 'Malla textil y goma', 
+    'Activo', 'tennis_casual.jpg');
+
+-- Productos de Botas
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (37, 30003, 14, 'Botas de Cuero Hombre', 'Botas resistentes de cuero genuino, ideales para uso 
+    diario y clima frío.', 'Cuero', 'Activo', 'bota_hombre.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (38, 30004, 14, 'Botines Casual Hombre', 'Botines cómodos y versátiles para el día a día con suela antideslizante.', 
+    'Gamuza sintética', 'Activo', 'botin_hombre.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (39, 30005, 14, 'Botas Mujer Elegantes', 'Botas altas con tacón cómodo, perfectas para un look sofisticado.', 
+    'Cuero sintético', 'Activo', 'bota_mujer.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (40, 30006, 14, 'Botines Mujer Casual', 'Botines bajos con diseño moderno y materiales suaves 
+    para todo el día.', 'Microfibra suave', 'Activo', 'botin_mujer.jpg');
+
+-- Productos de Zapatos Formales
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (41, 30007, 15, 'Zapatos Formales Hombre', 'Clásicos zapatos de cuero con suela antideslizante y 
+    diseño elegante.', 'Cuero genuino', 'Activo', 'zapato_formal_hombre.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (42, 30008, 15, 'Zapatos Formales Mujer', 'Zapatos con tacón medio, elegantes y cómodos para 
+    cualquier evento.', 'Cuero sintético y goma', 'Activo', 'zapato_formal_mujer.jpg');
+
+-- Productos de Sandalias
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (43, 30009, 16, 'Sandalias Urbanas', 'Sandalias de cuero vegano con tiras ajustables y suela cómoda.', 
+    'Cuero vegano', 'Activo', 'sandalia_urbana.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (44, 30010, 16, 'Sandalias Minimalistas', 'Diseño elegante en tonos neutros, perfectas para cualquier ocasión.', 
+    'Sintético', 'Activo', 'sandalia_minimalista.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (45, 30011, 16, 'Sandalias Plataforma', 'Plataforma ligera con tiras de tela y diseño moderno.', 
+    'Tela y goma', 'Activo', 'sandalia_plataforma.jpg');
+
+-- Productos de Zapatos Casuales
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (46, 30012, 17, 'Zapatos Casual Hombre', 'Diseño cómodo con suela flexible, perfectos para el día a día.',
+    'Cuero sintético', 'Activo', 'zapato_casual_hombre.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (47, 30013, 17, 'Zapatos Casual Mujer', 'Diseño moderno y ligero, ideal para combinar con cualquier outfit.', 
+    'Cuero sintético y tela', 'Activo', 'zapato_casual_mujer.jpg');
+
+-- Productos de Bolsos y Mochilas
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (48, 40001, 18, 'Bolso Tote', 'Bolso amplio en tela resistente, ideal para uso diario.', 
+    'Lona gruesa', 'Activo', 'bolso_tote.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (49, 40002, 18, 'Bolso Crossbody', 'Diseño compacto con correa ajustable para mayor comodidad.', 
+    'Cuero sintético', 'Activo', 'bolso_crossbody.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (50, 40003, 18, 'Mochila Urbana', 'Mochila funcional con varios compartimentos y diseño moderno.',
+    'Poliéster resistente', 'Activo', 'mochila_urbana.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (51, 40004, 18, 'Mochila Minimalista', 'Diseño simple y elegante, perfecta para uso casual o trabajo.', 
+    'Eco-cuero', 'Activo', 'mochila_minimalista.jpg');
+
+-- Productos de Joyería
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (52, 40005, 19, 'Aretes Aro Dorados', 'Elegantes aros de oro minimalistas, perfectos para el día a día.',
+    'Baño de oro', 'Activo', 'aretes_oro.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (53, 40006, 19, 'Collar Cadena Plateada', 'Cadena clásica en plata de ley, ideal para layering o uso individual.',
+    'Plata de ley', 'Activo', 'collar_cadena.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (54, 40007, 19, 'Anillo Dorado Delicado', 'Anillo fino en oro amarillo, ideal para combinar con otros accesorios.', 
+    'Aleación dorada', 'Activo', 'anillo_dorado.jpg');
+
+-- Productos de Gorras y Sombreros
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (55, 40008, 20, 'Gorra Essential Black', 'Diseño minimalista en negro con visera curva y cierre ajustable metálico.', 
+    'Algodón', 'Activo', 'gorra_essential.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (56, 40009, 20, 'Gorra Bold Script', 'Gorra estilo street con bordado frontal "C" en rojo.', 
+    'Mezcla de algodón y poliéster', 'Activo', 'gorra_bold.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (57, 40010, 20, 'Gorra Team Burgundy', 'Tono vino con textura suave y diseño clásico. Perfecta para
+    elevar tu outfit.', 'Algodón peinado', 'Activo', 'gorra_team.jpg');
+
+-- Productos de Cinturones
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (58, 40011, 21, 'Cinturón de Cuero Clásico', 'Cinturón de cuero genuino con hebilla metálica elegante y resistente.',
+    'Cuero', 'Activo', 'cinturon_cuero.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (59, 40012, 21, 'Cinturón Trenzado Casual', 'Cinturón tejido con materiales flexibles para un estilo relajado.',
+    'Poliéster tejido', 'Activo', 'cinturon_trenzado.jpg');
+
+-- Productos de Lentes
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (60, 40013, 22, 'Lentes Aviador Clásicos', 'Marco metálico con lentes oscuros, diseño icónico para
+    cualquier ocasión.', 'Metal y policarbonato', 'Activo', 'lentes_aviador.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (61, 40014, 22, 'Lentes Redondos Fashion', 'Diseño vintage con marco negro mate y lentes polarizados.',
+    'Acetato y lentes polarizados', 'Activo', 'lentes_redondos.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (62, 40015, 22, 'Lentes Cat Eye Rosas', 'Elegantes y femeninos, marco rosa pastel con lentes degradados.',
+    'Policarbonato', 'Activo', 'lentes_cat.jpg');
+
+-- Productos de Bufandas y Guantes
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (63, 40016, 23, 'Bufanda de Lana', 'Bufanda suave y cálida, perfecta para los días fríos.', 'Lana',
+    'Activo', 'bufanda_lana.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (64, 40017, 23, 'Bufanda Tejida', 'Diseño artesanal con colores modernos y materiales suaves.', 
+    'Acrílico', 'Activo', 'bufanda_tejida.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (65, 40018, 23, 'Guantes de Cuero', 'Elegantes y resistentes, perfectos para mantener las manos calientes.', 
+    'Cuero', 'Activo', 'guantes_cuero.jpg');
+
+INSERT INTO PRODUCTO (ID_PRODUCTO, CODIGO_PRODUCTO, ID_CATEGORIA, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO,
+    MATERIAL, ESTADO, IMAGEN) 
+VALUES (66, 40019, 23, 'Guantes de Punto', 'Cómodos y cálidos, ideales para un look casual y funcional.', 
+    'Poliéster', 'Activo', 'guantes_punto.jpg');
+    
+-- Inventario para Camisas y Camisetas Hombre
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (1, 1, 'M', 'Blanco', 30, 5, 24000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (2, 2, 'L', 'Azul', 25, 5, 17000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (3, 3, 'M', 'Café/Azul', 20, 5, 20500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (4, 4, 'S', 'Negro', 25, 5, 15900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (5, 5, 'L', 'Beige', 20, 5, 28900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (6, 6, 'M', 'Multicolor', 20, 5, 35600.00);
+
+-- Inventario para Chaquetas y Sudaderas Hombre
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (7, 7, 'L', 'Negro', 15, 3, 47500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (8, 8, 'M', 'Negro', 10, 3, 84000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (9, 9, 'S', 'Gris', 15, 3, 38000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (10, 10, 'M', 'Gris', 15, 3, 28900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (11, 11, 'L', 'Gris', 12, 3, 68000.00);
+
+-- Inventario para Pantalones Hombre
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (12, 12, '32', 'Negro', 16, 5, 35500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (13, 13, '34', 'Beige', 22, 5, 20700.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (14, 14, '36', 'Verde', 18, 5, 26000.00);
+
+-- Inventario para Vestidos Mujer
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (15, 15, 'S', 'Negro', 30, 5, 29900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (16, 16, 'M', 'Azul', 10, 5, 31500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (17, 17, 'L', 'Multicolor', 12, 5, 34000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (18, 18, 'S', 'Blanco', 25, 5, 27500.00);
+
+-- Inventario para Blusas y Camisetas Mujer
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (19, 19, 'S', 'Blanco/Negro', 20, 5, 13500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (20, 20, 'M', 'Negro', 18, 5, 16200.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (21, 21, 'S', 'Negro', 22, 5, 14300.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (22, 22, 'M', 'Blanco', 16, 5, 17200.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (23, 23, 'L', 'Negro', 19, 5, 15200.00);
+
+-- Inventario para Faldas Mujer
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (24, 24, 'S', 'Rosa', 15, 5, 19800.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (25, 25, 'M', 'Gris', 15, 5, 17000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (26, 26, 'S', 'Azul', 15, 5, 15900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (27, 27, 'M', 'Negro', 15, 5, 18500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (28, 28, 'S', 'Negro', 15, 5, 19900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (29, 29, 'M', 'Café', 15, 5, 22000.00);
+
+-- Inventario para Pantalones Mujer
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (30, 30, 'S', 'Café', 24, 5, 29500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (31, 31, 'M', 'Negro', 20, 5, 27800.00);
+
+-- Inventario para Chaquetas y Sudaderas Mujer
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (32, 32, 'S', 'Azul', 20, 5, 38900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (33, 33, 'M', 'Beige', 30, 5, 27500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (34, 34, 'L', 'Negro', 40, 5, 22900.00);
+
+-- Inventario para Tennis
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (35, 35, '38', 'Blanco', 35, 5, 35940.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (36, 36, '37', 'Gris', 27, 5, 31200.00);
+
+-- Inventario para Botas
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (37, 37, '40', 'Negro', 12, 3, 45000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (38, 38, '39', 'Café', 20, 3, 38200.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (39, 39, '37', 'Negro', 10, 3, 52300.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (40, 40, '36', 'Negro', 18, 3, 39900.00);
+
+-- Inventario para Zapatos Formales
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (41, 41, '41', 'Negro', 18, 3, 52500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (42, 42, '38', 'Negro', 14, 3, 58900.00);
+
+-- Inventario para Sandalias
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (43, 43, '37', 'Beige', 25, 5, 24500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (44, 44, '36', 'Blanco', 30, 5, 19900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (45, 45, '38', 'Blanco/Beige', 15, 5, 28750.00);
+
+-- Inventario para Zapatos Casuales
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (46, 46, '40', 'Café', 25, 5, 35000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (47, 47, '37', 'Marrón', 30, 5, 33500.00);
+
+-- Inventario para Bolsos y Mochilas
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (48, 48, 'Café', 22, 5, 32000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (49, 49, 'Negro', 18, 5, 27500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (50, 50, 'Azul', 20, 5, 38900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (51, 51, 'Azul', 25, 5, 34600.00);
+
+-- Inventario para Joyería
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (52, 52, 'Dorado', 25, 5, 15900.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (53, 53, 'Plateado', 18, 5, 20800.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (54, 54, 'Dorado', 30, 5, 13000.00);
+
+-- Inventario para Gorras
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (55, 55, 'Negro', 20, 5, 12000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (56, 56, 'Blanco/Negro', 20, 5, 13000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (57, 57, 'Vino', 20, 5, 14000.00);
+
+-- Inventario para Cinturones
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (58, 58, 'Café', 35, 5, 18200.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (59, 59, 'Negro', 28, 5, 15800.00);
+
+-- Inventario para Lentes
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (60, 60, 'Multicolor', 30, 5, 27000.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (61, 61, 'Negro', 25, 5, 32400.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (62, 62, 'Rosa', 18, 5, 29500.00);
+
+-- Inventario para Bufandas y Guantes
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (63, 63, 'Gris', 40, 5, 12500.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (64, 64, 'Rojo', 35, 5, 15300.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (65, 65, 'Negro', 28, 5, 18700.00);
+
+INSERT INTO INVENTARIO (INVENTARIO_ID, PRODUCTO_ID, COLOR, STOCK_ACTUAL, STOCK_MINIMO, PRECIO_VENTA) 
+VALUES (66, 66, 'Gris', 30, 5, 13900.00);

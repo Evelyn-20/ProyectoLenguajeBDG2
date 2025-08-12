@@ -116,14 +116,19 @@ IS
 BEGIN
     OPEN p_result FOR
         SELECT 
+            p.ID_PRODUCTO,
             p.CODIGO_PRODUCTO,
             p.NOMBRE_PRODUCTO,
             p.DESRIPCION_PRODUCTO,
             p.MATERIAL,
             p.IMAGEN,
-            P.ESTADO
+            p.ESTADO,
+            p.ID_CATEGORIA,
+            c.NOMBRE_CATEGORIA
         FROM 
             producto p
+        JOIN 
+            categoria c ON p.ID_CATEGORIA = c.ID_CATEGORIA
         WHERE 
             p.ID_CATEGORIA = p_categoria_id
             AND p.ESTADO = 'Activo';

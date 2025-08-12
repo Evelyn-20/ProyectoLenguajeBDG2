@@ -35,6 +35,30 @@ JOIN
     CATEGORIA c ON p.ID_CATEGORIA = c.ID_CATEGORIA
 WHERE 
     p.ESTADO = 'Inactivo';
+    
+CREATE OR REPLACE VIEW vista_productos_inventario AS
+SELECT 
+    p.ID_PRODUCTO,
+    p.CODIGO_PRODUCTO,
+    p.NOMBRE_PRODUCTO,
+    p.DESRIPCION_PRODUCTO,
+    p.MATERIAL,
+    p.IMAGEN,
+    p.ESTADO,
+    p.ID_CATEGORIA,
+    c.NOMBRE_CATEGORIA,
+    i.INVENTARIO_ID,
+    i.TALLA,
+    i.COLOR,
+    i.STOCK_ACTUAL,
+    i.STOCK_MINIMO,
+    i.PRECIO_VENTA
+FROM 
+    PRODUCTO p
+JOIN 
+    CATEGORIA c ON p.ID_CATEGORIA = c.ID_CATEGORIA
+JOIN 
+    INVENTARIO i ON p.ID_PRODUCTO = i.PRODUCTO_ID;
 
 --------------------------------------------------------------------------------
 -- Vista que muestra todos los clientes activos
