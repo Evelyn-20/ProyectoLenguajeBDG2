@@ -11,37 +11,25 @@
             <div class="container py-5">
                 <h2 class="text-center mb-5 fw-bold display-5">Hombre</h2>
                 <div class="row g-4">
-                    <div class="col-md-4">
-                        <a href="/producto/camisas-camisetas" class="text-decoration-none">
+                    <div class="col-md-4" th:each="categoria : ${categorias}">
+                        <a th:href="@{'/producto/' + ${categoria.codigoUrl}}" class="text-decoration-none">
                             <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/natural_vibes.jpg}" style="height: 450px; object-fit: cover;" alt="Camisas" class="card-img-top rounded-top-4" />
+                                <img th:src="@{'/img/' + ${categoria.imagenProducto}}" 
+                                     style="height: 450px; object-fit: cover;" 
+                                     th:alt="${categoria.nombreCategoria}" 
+                                     class="card-img-top rounded-top-4" />
                                 <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Camisas y Camisetas</h5>
+                                    <h5 class="card-title text-dark" th:text="${categoria.nombreCategoria}">Nombre Categoría</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
                     
-                    <div class="col-md-4">
-                        <a href="/producto/pantalones-hombre" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/pantalon_cargo.jpg}" style="height: 450px; object-fit: cover;" alt="Pantalones" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Pantalones</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/chaquetas-sudaderas-hombre" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/street_bomber.jpg}" style="height: 450px; object-fit: cover;" alt="Chaquetas" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Chaquetas y Sudaderas</h5>
-                                </div>
-                            </div>
-                        </a>
+                    <div class="col-12 text-center" th:if="${#lists.isEmpty(categorias)}">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            No hay categorías disponibles en este momento.
+                        </div>
                     </div>
                 </div>
             </div>

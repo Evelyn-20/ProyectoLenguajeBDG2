@@ -3,74 +3,37 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>Nous</title>
+        <title>Nous - Mujer</title>
     </head>
     <body class="d-flex flex-column min-vh-100 bg-light">
-
         <header th:replace="~{layout/plantilla :: header}"/>
-
         <section th:fragment="Categorias" class="py-5">
             <div class="container py-5">
-                <h2 class="text-center mb-5 fw-bold display-5">Mujer</h2>
+                <h2 class="text-center mb-5 fw-bold display-5">Mujeres</h2>
                 <div class="row g-4">
-                    <div class="col-md-4">
-                        <a href="/producto/vestidos" class="text-decoration-none">
+                    <div class="col-md-4" th:each="categoria : ${categorias}">
+                        <a th:href="@{'/producto/' + ${categoria.codigoUrl}}" class="text-decoration-none">
                             <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/minimal_cream.jpg}" style="height: 450px; object-fit: cover;" alt="Vestidos" class="card-img-top rounded-top-4"/>
+                                <img th:src="@{'/img/' + ${categoria.imagenProducto}}" 
+                                     style="height: 450px; object-fit: cover;" 
+                                     th:alt="${categoria.nombreCategoria}" 
+                                     class="card-img-top rounded-top-4" />
                                 <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Vestidos</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4">
-                        <a href="/producto/blusas-camisetas" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/black_silk.jpg}" style="height: 450px; object-fit: cover;" alt="Blusas" class="card-img-top rounded-top-4"/>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Blusas y Camisetas</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4">
-                        <a href="/producto/faldas" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/falda_asimetrica.jpg}" style="height: 450px; object-fit: cover;" alt="Faldas" class="card-img-top rounded-top-4"/>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Faldas</h5>
+                                    <h5 class="card-title text-dark" th:text="${categoria.nombreCategoria}">Nombre Categoría</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
                     
-                    <div class="col-md-4">
-                        <a href="/producto/pantalones-mujer" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/pantalon_cargo_mujer.jpg}" style="height: 450px; object-fit: cover;" alt="Pantalones" class="card-img-top rounded-top-4"/>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Pantalones</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/chaquetas-sudaderas-mujer" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/sudadera_capucha.jpg}" style="height: 450px; object-fit: cover;" alt="Chaquetas" class="card-img-top rounded-top-4"/>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Chaquetas y Sudaderas</h5>
-                                </div>
-                            </div>
-                        </a>
+                    <div class="col-12 text-center" th:if="${#lists.isEmpty(categorias)}">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            No hay categorías disponibles en este momento.
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
         <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>

@@ -11,70 +11,25 @@
             <div class="container py-5">
                 <h2 class="text-center mb-5 fw-bold display-5">Accesorios</h2>
                 <div class="row g-4">
-                    <div class="col-md-4">
-                        <a href="/producto/bolso-mochila" class="text-decoration-none">
+                    <div class="col-md-4" th:each="categoria : ${categorias}">
+                        <a th:href="@{'/producto/' + ${categoria.codigoUrl}}" class="text-decoration-none">
                             <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/mochila_minimalista.jpg}" style="height: 450px; object-fit: cover;" alt="Bolsos" class="card-img-top rounded-top-4" />
+                                <img th:src="@{'/img/' + ${categoria.imagenProducto}}" 
+                                     style="height: 450px; object-fit: cover;" 
+                                     th:alt="${categoria.nombreCategoria}" 
+                                     class="card-img-top rounded-top-4" />
                                 <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Bolsos y Mochilas</h5>
+                                    <h5 class="card-title text-dark" th:text="${categoria.nombreCategoria}">Nombre Categoría</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
                     
-                    <div class="col-md-4">
-                        <a href="/producto/joyería" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/anillo_dorado.jpg}" style="height: 450px; object-fit: cover;" alt="Joyas" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Joyería</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/gorras-sombreros" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/gorra_team.jpg}" style="height: 450px; object-fit: cover;" alt="Gorras" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Gorras y Sombreros</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/cinturones" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/cinturon_cuero.jpg}" style="height: 450px; object-fit: cover;" alt="Cinturones" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Cinturones</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/lentes" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/lentes_aviador.jpg}" style="height: 450px; object-fit: cover;" alt="Lentes" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Lentes</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/bufandas-guantes" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/bufanda_tejida.jpg}" style="height: 450px; object-fit: cover;" alt="Bufandas" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Bufandas y Guantes</h5>
-                                </div>
-                            </div>
-                        </a>
+                    <div class="col-12 text-center" th:if="${#lists.isEmpty(categorias)}">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            No hay categorías disponibles en este momento.
+                        </div>
                     </div>
                 </div>
             </div>

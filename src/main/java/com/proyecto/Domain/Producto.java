@@ -17,8 +17,7 @@ public class Producto {
     private double precio;
     private boolean activo;
     private String rutaImagen;
-    private int disponibles;
-
+    
     // Constructor vacío
     public Producto() {}
 
@@ -141,13 +140,5 @@ public class Producto {
 
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
-    }
-
-    public int getDisponibles() {
-        return disponibles;
-    }
-
-    public void setDisponibles(int disponibles) {
-        this.disponibles = disponibles;
     }
 }

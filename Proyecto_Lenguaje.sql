@@ -406,7 +406,7 @@ WHERE
 
 --------------------------------------------------------------------------------
 -- Vista que muestra todos los clientes activos
-CREATE OR REPLACE VIEW vista_clientes AS
+CREATE OR REPLACE VIEW vista_clientes_activos AS
 SELECT 
     CEDULA,
     NOMBRE,
@@ -415,7 +415,9 @@ SELECT
     TELEFONO,
     DIRECCION
 FROM 
-    CLIENTE;
+    CLIENTE
+WHERE 
+    ESTADO = 'Activo';
 
 --------------------------------------------------------------------------------
 -- Vista que muestra todos los proveedores activos

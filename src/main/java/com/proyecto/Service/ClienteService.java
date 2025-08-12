@@ -19,8 +19,13 @@ public class ClienteService {
     }
 
     @Transactional
-    public void actualizarCliente(Cliente cliente) {
-        clienteRepository.actualizarCliente(cliente);
+    public void actualizarCliente(Cliente cliente, String nuevaContrasena) {
+        clienteRepository.actualizarCliente(cliente, nuevaContrasena);
+    }
+    
+    @Transactional
+    public void modificarCliente(Cliente cliente) {
+        clienteRepository.modificarCliente(cliente);
     }
 
     @Transactional
@@ -33,20 +38,25 @@ public class ClienteService {
         clienteRepository.activarCliente(cedula);
     }
 
-    // Método principal para obtener TODOS los clientes (activos e inactivos)
+    public List<Cliente> obtenerClientesActivos() {
+        return clienteRepository.obtenerClientesActivos();
+    }
+
+    public List<Cliente> obtenerClientesInactivos() {
+        return clienteRepository.obtenerClientesInactivos();
+    }
+
     public List<Cliente> obtenerTodosLosClientes() {
         return clienteRepository.obtenerTodosLosClientes();
     }
 
-    // Método principal para buscar en TODOS los clientes (activos e inactivos)
     public List<Cliente> buscarClientes(String busqueda) {
         if (busqueda == null || busqueda.trim().isEmpty()) {
             return obtenerTodosLosClientes();
         }
-        return clienteRepository.buscarTodosClientes(busqueda);
+        return clienteRepository.buscarClientes(busqueda);
     }
 
-    // Método alternativo que hace lo mismo que buscarClientes para mayor claridad
     public List<Cliente> buscarTodosClientes(String busqueda) {
         if (busqueda == null || busqueda.trim().isEmpty()) {
             return obtenerTodosLosClientes();
@@ -62,15 +72,11 @@ public class ClienteService {
         return clienteRepository.obtenerClientePorCedula(cedula);
     }
 
-    // Métodos para obtener solo clientes activos (por si los necesitas en otro lugar)
-    public List<Cliente> obtenerClientesActivos() {
-        return clienteRepository.obtenerClientesActivosVista();
+    public boolean existeEmail(String email) {
+        return clienteRepository.existeEmail(email);
     }
 
-    public List<Cliente> buscarClientesActivos(String busqueda) {
-        if (busqueda == null || busqueda.trim().isEmpty()) {
-            return obtenerClientesActivos();
-        }
-        return clienteRepository.buscarClientes(busqueda);
+    public boolean verificarUsuarioActivo(String email) {
+        return clienteRepository.verificarUsuarioActivo(email);
     }
 }

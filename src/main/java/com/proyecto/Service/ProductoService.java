@@ -14,6 +14,10 @@ public class ProductoService {
     @Autowired
     private ProductoDao productoDao;
 
+    public List<Producto> getProductosPorCategoria(Long categoriaId) {
+        return productoDao.findByCategoriaId(categoriaId);
+    }
+
     // Obtener todos los productos
     public List<Producto> getProductos() {
         return productoDao.findAll();
@@ -24,7 +28,7 @@ public class ProductoService {
         return productoDao.findProductosActivos();
     }
 
-    // Buscar productos por nombre
+    // Buscar productos por nombre usando procedimiento almacenado
     public List<Producto> buscarProductos(String nombre) {
         if (nombre == null || nombre.trim().isEmpty()) {
             return getProductos();
@@ -37,27 +41,27 @@ public class ProductoService {
         return productoDao.findById(id);
     }
 
-    // Consultar producto por código
+    // Consultar producto por código usando procedimiento almacenado
     public Producto consultarProductoPorCodigo(String codigo) {
         return productoDao.consultarProducto(codigo);
     }
 
-    // Registrar nuevo producto
+    // Registrar nuevo producto usando procedimiento almacenado
     public void registrarProducto(Producto producto) {
         productoDao.registrarProducto(producto);
     }
 
-    // Actualizar producto existente
+    // Actualizar producto existente usando procedimiento almacenado
     public void actualizarProducto(Producto producto) {
         productoDao.actualizarProducto(producto);
     }
 
-    // Deshabilitar producto
+    // Deshabilitar producto usando procedimiento almacenado
     public void deshabilitarProducto(String codigo) {
         productoDao.deshabilitarProducto(codigo);
     }
 
-    // Eliminar producto (deshabilitar)
+    // Eliminar producto (deshabilitar) por ID
     public void eliminarProducto(Long id) {
         Producto producto = productoDao.findById(id);
         if (producto != null) {

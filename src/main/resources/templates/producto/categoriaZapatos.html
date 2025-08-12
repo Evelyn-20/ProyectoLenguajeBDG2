@@ -11,59 +11,25 @@
             <div class="container py-5">
                 <h2 class="text-center mb-5 fw-bold display-5">Zapatos</h2>
                 <div class="row g-4">
-                    <div class="col-md-4">
-                        <a href="/producto/tenis" class="text-decoration-none">
+                    <div class="col-md-4" th:each="categoria : ${categorias}">
+                        <a th:href="@{'/producto/' + ${categoria.codigoUrl}}" class="text-decoration-none">
                             <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/tennis_blanca.jpg}" style="height: 450px; object-fit: cover;" alt="Tennis" class="card-img-top rounded-top-4" />
+                                <img th:src="@{'/img/' + ${categoria.imagenProducto}}" 
+                                     style="height: 450px; object-fit: cover;" 
+                                     th:alt="${categoria.nombreCategoria}" 
+                                     class="card-img-top rounded-top-4" />
                                 <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Tennis</h5>
+                                    <h5 class="card-title text-dark" th:text="${categoria.nombreCategoria}">Nombre Categoría</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
                     
-                    <div class="col-md-4">
-                        <a href="/producto/botas" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/bota_mujer.jpg}" style="height: 450px; object-fit: cover;" alt="Botas" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Botas</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/zapatos-formales" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/zapato_formal_hombre.jpg}" style="height: 450px; object-fit: cover;" alt="Zapatos Formales" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Zapatos Formales</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/sandalias" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/sandalia_minimalista.jpg}" style="height: 450px; object-fit: cover;" alt="Sandalias" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Sandalias</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <a href="/producto/zapatos-casuales" class="text-decoration-none">
-                            <div class="card shadow-sm rounded-4 border-0">
-                                <img th:src="@{/img/zapato_casual_mujer.jpg}" style="height: 450px; object-fit: cover;" alt="Zapatos Casuales" class="card-img-top rounded-top-4" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title text-dark">Zapatos Casuales</h5>
-                                </div>
-                            </div>
-                        </a>
+                    <div class="col-12 text-center" th:if="${#lists.isEmpty(categorias)}">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            No hay categorías disponibles en este momento.
+                        </div>
                     </div>
                 </div>
             </div>
