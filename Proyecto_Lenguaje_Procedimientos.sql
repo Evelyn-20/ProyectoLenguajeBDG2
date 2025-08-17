@@ -1,32 +1,64 @@
 --------------------------------------------------------------------------------
 /*Producto*/
 --------------------------------------------------------------------------------
-/*Registrar producto*/
-CREATE OR REPLACE PROCEDURE registrar_producto (
-    p_codigo        IN  VARCHAR2,
+create or replace NONEDITIONABLE PROCEDURE registrar_producto (
+    p_codigo        IN  NUMBER,
     p_nombre        IN  VARCHAR2,
     p_descripcion   IN  VARCHAR2,
     p_material      IN  VARCHAR2,
     p_categoria_id  IN  NUMBER,
-    p_imagen        IN  VARCHAR2 DEFAULT NULL
-)
-IS
+    p_imagen        IN  VARCHAR2 DEFAULT NULL,
+    p_talla         IN  VARCHAR2,
+    p_color         IN  VARCHAR2,
+    p_stock_actual  IN  NUMBER,
+    p_stock_minimo  IN  NUMBER,
+    p_precio_venta  IN  NUMBER
+) IS
+    v_producto_id NUMBER;
+    v_count NUMBER;
 BEGIN
+    -- Verificar si el código ya existe de manera más eficiente
+    SELECT COUNT(*) INTO v_count 
+    FROM PRODUCTO 
+    WHERE CODIGO_PRODUCTO = p_codigo;
+
+    IF v_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Código de producto duplicado: ' || p_codigo);
+    END IF;
+
+    -- Verificar que la categoría existe
+    SELECT COUNT(*) INTO v_count 
+    FROM CATEGORIA 
+    WHERE ID_CATEGORIA = p_categoria_id;
+
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Categoría no existe: ' || p_categoria_id);
+    END IF;
+
+    -- Insertar producto
     INSERT INTO PRODUCTO (
         ID_PRODUCTO, CODIGO_PRODUCTO, NOMBRE_PRODUCTO, DESRIPCION_PRODUCTO, 
         MATERIAL, ID_CATEGORIA, ESTADO, IMAGEN
     )
     VALUES (
         producto_seq.NEXTVAL, p_codigo, p_nombre, p_descripcion, 
-        p_material, p_categoria_id, 'Activo', p_imagen
+        p_material, p_categoria_id, 'Activo', NVL(p_imagen, 'default-image.jpg')
+    )
+    RETURNING ID_PRODUCTO INTO v_producto_id;
+
+    -- Insertar inventario
+    INSERT INTO INVENTARIO (
+        INVENTARIO_ID, PRODUCTO_ID, TALLA, COLOR, STOCK_ACTUAL, 
+        STOCK_MINIMO, PRECIO_VENTA
+    )
+    VALUES (
+        inventario_seq.NEXTVAL, v_producto_id, p_talla, p_color, 
+        p_stock_actual, p_stock_minimo, p_precio_venta
     );
 EXCEPTION
-    WHEN dup_val_on_index THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Código de producto duplicado');
     WHEN OTHERS THEN
-        RAISE_APPLICATION_ERROR(-20002, 'Error al registrar producto: '||SQLERRM);
+        RAISE_APPLICATION_ERROR(-20002, 'Error al registrar producto: ' || SQLERRM);
 END;
-/
 
 /*Consultar producto*/
 CREATE OR REPLACE PROCEDURE consultar_producto (
@@ -34,44 +66,99 @@ CREATE OR REPLACE PROCEDURE consultar_producto (
     p_result      OUT SYS_REFCURSOR
 )
 IS
+    v_codigo_numero NUMBER;
+    v_is_numeric NUMBER;
 BEGIN
+    -- Verificar si el parámetro es numérico
+    BEGIN
+        v_codigo_numero := TO_NUMBER(p_codigo);
+        v_is_numeric := 1;
+    EXCEPTION
+        WHEN VALUE_ERROR THEN
+            v_is_numeric := 0;
+    END;
+    
     OPEN p_result FOR
-        SELECT * FROM PRODUCTO
-        WHERE CODIGO_PRODUCTO = p_codigo;
+        SELECT 
+            p.ID_PRODUCTO,
+            p.CODIGO_PRODUCTO,
+            p.NOMBRE_PRODUCTO,
+            p.DESRIPCION_PRODUCTO,
+            p.MATERIAL,
+            p.IMAGEN,
+            p.ESTADO,
+            p.ID_CATEGORIA,
+            c.NOMBRE_CATEGORIA,
+            i.INVENTARIO_ID,
+            i.TALLA,
+            i.COLOR,
+            i.STOCK_ACTUAL,
+            i.STOCK_MINIMO,
+            i.PRECIO_VENTA
+        FROM 
+            PRODUCTO p
+        JOIN 
+            CATEGORIA c ON p.ID_CATEGORIA = c.ID_CATEGORIA
+        LEFT JOIN 
+            INVENTARIO i ON p.ID_PRODUCTO = i.PRODUCTO_ID
+        WHERE 
+            (v_is_numeric = 1 AND p.CODIGO_PRODUCTO = v_codigo_numero)
+            OR (v_is_numeric = 0 AND LOWER(p.NOMBRE_PRODUCTO) LIKE '%' || LOWER(p_codigo) || '%');
 END;
 /
 
 /*Actualizar producto*/
 CREATE OR REPLACE PROCEDURE actualizar_producto (
-    p_codigo        IN  VARCHAR2,
+    p_producto_id   IN  NUMBER,
+    p_codigo        IN  NUMBER,
     p_nombre        IN  VARCHAR2,
     p_descripcion   IN  VARCHAR2,
     p_material      IN  VARCHAR2,
     p_categoria_id  IN  NUMBER,
-    p_imagen        IN  VARCHAR2 DEFAULT NULL
+    p_imagen        IN  VARCHAR2 DEFAULT NULL,
+    p_talla         IN  VARCHAR2,
+    p_color         IN  VARCHAR2,
+    p_stock_actual  IN  NUMBER,
+    p_stock_minimo  IN  NUMBER,
+    p_precio_venta  IN  NUMBER
 )
 IS
+    v_count NUMBER;
 BEGIN
-    IF p_imagen IS NULL THEN
-        UPDATE PRODUCTO
-           SET NOMBRE_PRODUCTO       = p_nombre,
-               DESRIPCION_PRODUCTO   = p_descripcion,
-               MATERIAL              = p_material,
-               ID_CATEGORIA          = p_categoria_id
-         WHERE CODIGO_PRODUCTO = p_codigo;
-    ELSE
-        UPDATE PRODUCTO
-           SET NOMBRE_PRODUCTO       = p_nombre,
-               DESRIPCION_PRODUCTO   = p_descripcion,
-               MATERIAL              = p_material,
-               ID_CATEGORIA          = p_categoria_id,
-               IMAGEN                = p_imagen
-         WHERE CODIGO_PRODUCTO = p_codigo;
+    -- Verificar si el producto existe por ID
+    SELECT COUNT(*) INTO v_count 
+    FROM PRODUCTO 
+    WHERE ID_PRODUCTO = p_producto_id;
+    
+    IF v_count = 0 THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Producto no encontrado con ID: ' || p_producto_id);
     END IF;
-
-    IF SQL%ROWCOUNT = 0 THEN
-        RAISE_APPLICATION_ERROR(-20003, 'Producto no encontrado');
-    END IF;
+    
+    -- Actualizar producto usando el ID directamente
+    UPDATE PRODUCTO
+    SET CODIGO_PRODUCTO = p_codigo,
+        NOMBRE_PRODUCTO = p_nombre,
+        DESRIPCION_PRODUCTO = p_descripcion,
+        MATERIAL = p_material,
+        ID_CATEGORIA = p_categoria_id,
+        IMAGEN = NVL(p_imagen, IMAGEN)
+    WHERE ID_PRODUCTO = p_producto_id;
+    
+    -- Actualizar inventario usando el ID del producto directamente
+    UPDATE INVENTARIO
+    SET TALLA = p_talla,
+        COLOR = p_color,
+        STOCK_ACTUAL = p_stock_actual,
+        STOCK_MINIMO = p_stock_minimo,
+        PRECIO_VENTA = p_precio_venta
+    WHERE PRODUCTO_ID = p_producto_id;
+    
+    COMMIT;
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20004, 'Error al actualizar producto: ' || SQLERRM);
 END;
 /
 
@@ -124,14 +211,23 @@ BEGIN
             p.IMAGEN,
             p.ESTADO,
             p.ID_CATEGORIA,
-            c.NOMBRE_CATEGORIA
+            c.NOMBRE_CATEGORIA,
+            i.INVENTARIO_ID,
+            i.TALLA,
+            i.COLOR,
+            i.STOCK_ACTUAL,
+            i.STOCK_MINIMO,
+            i.PRECIO_VENTA
         FROM 
-            producto p
+            PRODUCTO p
         JOIN 
-            categoria c ON p.ID_CATEGORIA = c.ID_CATEGORIA
+            CATEGORIA c ON p.ID_CATEGORIA = c.ID_CATEGORIA
+        LEFT JOIN 
+            INVENTARIO i ON p.ID_PRODUCTO = i.PRODUCTO_ID
         WHERE 
             p.ID_CATEGORIA = p_categoria_id
-            AND p.ESTADO = 'Activo';
+            AND p.ESTADO = 'Activo'
+        ORDER BY p.ID_PRODUCTO;
 END;
 /
 
@@ -146,14 +242,32 @@ IS
 BEGIN
     OPEN p_result FOR
         SELECT 
-            CODIGO_PRODUCTO,
-            NOMBRE_PRODUCTO,
-            DESRIPCION_PRODUCTO,
-            MATERIAL,
-            IMAGEN,
-            ESTADO
-        FROM producto
-        WHERE LOWER(NOMBRE_PRODUCTO) LIKE '%' || LOWER(p_nombre) || '%';
+            p.ID_PRODUCTO,
+            p.CODIGO_PRODUCTO,
+            p.NOMBRE_PRODUCTO,
+            p.DESRIPCION_PRODUCTO,
+            p.MATERIAL,
+            p.IMAGEN,
+            p.ESTADO,
+            p.ID_CATEGORIA,
+            c.NOMBRE_CATEGORIA,
+            i.INVENTARIO_ID,
+            i.TALLA,
+            i.COLOR,
+            i.STOCK_ACTUAL,
+            i.STOCK_MINIMO,
+            i.PRECIO_VENTA
+        FROM 
+            PRODUCTO p
+        JOIN 
+            CATEGORIA c ON p.ID_CATEGORIA = c.ID_CATEGORIA
+        LEFT JOIN 
+            INVENTARIO i ON p.ID_PRODUCTO = i.PRODUCTO_ID
+        WHERE 
+            (LOWER(p.NOMBRE_PRODUCTO) LIKE '%' || LOWER(p_nombre) || '%'
+            OR LOWER(p.DESRIPCION_PRODUCTO) LIKE '%' || LOWER(p_nombre) || '%'
+            OR TO_CHAR(p.CODIGO_PRODUCTO) LIKE '%' || p_nombre || '%')
+        ORDER BY p.ID_PRODUCTO;
 END;
 /
 --------------------------------------------------------------------------------

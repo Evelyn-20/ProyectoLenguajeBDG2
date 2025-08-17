@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-/*Vistas*/
+/*Paquetes*/
 --------------------------------------------------------------------------------
 -- Vista que muestra todos los productos activos con su información principal
 CREATE OR REPLACE VIEW vista_productos_activos AS

@@ -59,7 +59,7 @@ END;
 --------------------------------------------------------------------------------
 -- fn_producto_en_categoria
 CREATE OR REPLACE FUNCTION fn_producto_en_categoria (
-    p_codigo_producto IN VARCHAR2,
+    p_codigo_producto IN NUMBER,
     p_categoria_id IN NUMBER
 ) RETURN BOOLEAN
 IS
@@ -131,7 +131,7 @@ END;
 --------------------------------------------------------------------------------
 -- fn_categoria_de_producto
 CREATE OR REPLACE FUNCTION fn_categoria_de_producto (
-    p_codigo_producto VARCHAR2
+    p_codigo_producto NUMBER
 ) RETURN VARCHAR2
 IS
     v_categoria_nombre VARCHAR2(100);
@@ -191,7 +191,7 @@ END;
 --------------------------------------------------------------------------------
 -- fn_verificar_producto_activo
 CREATE OR REPLACE FUNCTION fn_verificar_producto_activo (
-    p_codigo IN VARCHAR2
+    p_codigo IN NUMBER
 ) RETURN BOOLEAN
 IS
     v_estado VARCHAR2(20);
