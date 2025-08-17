@@ -11,52 +11,56 @@
 
         <section class="py-5">
             <div class="container">
-                <h2 class="text-center mb-5 fw-bold display-6">Sandalias</h2>
+                <h2 class="text-center mb-5 fw-bold display-6" th:text="${categoria}">Sandalias</h2>
 
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col">
+                <!-- Mostrar productos dinámicamente desde la base de datos -->
+                <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${productos != null and !productos.empty}">
+                    <div class="col" th:each="producto : ${productos}">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/sandalia_urbana.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Sandalias Urbanas"/>
+                            <img th:src="@{'/img/' + ${producto.rutaImagen}}" 
+                                 class="card-img-top rounded-top-4" 
+                                 th:alt="${producto.nombre}"
+                                 style="height: 550px; object-fit: cover;"
+                                 onerror="this.src='/img/default-image.jpg'">
                             <div class="card-body text-center d-flex flex-column">
-                                <h5 class="card-title">Sandalias Urbanas</h5>
-                                <p class="card-text">Sandalias de cuero vegano con tiras ajustables y suela cómoda.</p>
-                                <p class="card-text"><strong>Material:</strong> Cuero vegano</p>
-                                <p class="card-text"><strong>Precio:</strong> ₡24,500</p>
-                                <p class="card-text"><strong>Disponibles:</strong> 25</p>
-                                <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
+                                <h5 class="card-title" th:text="${producto.nombre}">Nombre del Producto</h5>
+                                <p class="card-text" th:text="${producto.descripcion}">Descripción del producto</p>
+                                <p class="card-text"><strong>Material:</strong> <span th:text="${producto.material}">Material</span></p>
+                                <p class="card-text"><strong>Talla:</strong> <span th:text="${producto.talla}">Talla</span></p>
+                                <p class="card-text"><strong>Color:</strong> <span th:text="${producto.color}">Color</span></p>
+                                <p class="card-text"><strong>Precio:</strong> ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
+                                <p class="card-text" th:classappend="${producto.stockActual <= producto.stockMinimo} ? 'text-danger' : 'text-success'">
+                                    <strong>Stock:</strong> <span th:text="${producto.stockActual}">0</span> disponibles
+                                </p>
+                                <button class="btn btn-dark px-3 rounded-3 text-white mt-auto" 
+                                        th:disabled="${producto.stockActual <= 0}"
+                                        th:text="${producto.stockActual <= 0} ? 'Sin Stock' : 'Añadir al carrito'">
+                                    Añadir al carrito
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/sandalia_minimalista.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Sandalias Minimalistas">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Sandalias Minimalistas</h5>
-                                    <p class="card-text">Diseño elegante en tonos neutros, perfectas para cualquier ocasión.</p>
-                                    <p class="card-text"><strong>Material:</strong> Sintético</p>
-                                    <p class="card-text"><strong>Precio:</strong> ₡19,900</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 30</p>
-                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
-                                </div>
-                        </div>
+                </div>
+
+                <!-- Mensaje cuando no hay productos -->
+                <div class="text-center py-5" th:if="${productos == null or productos.empty}">
+                    <div class="mb-4">
+                        <i class="bi bi-person-dress text-muted" style="font-size: 4rem;"></i>
                     </div>
-                    <div class="col">
-                        <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/sandalia_plataforma.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Sandalias Plataforma">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Sandalias Plataforma</h5>
-                                    <p class="card-text">Plataforma ligera con tiras de tela y diseño moderno.</p>
-                                    <p class="card-text"><strong>Material:</strong> Tela y goma</p>
-                                    <p class="card-text"><strong>Precio:</strong> ₡28,750</p>
-                                    <p class="card-text"><strong>Disponibles:</strong> 15</p>
-                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
-                                </div>
-                        </div>
-                    </div>
+                    <h4 class="fw-bold mb-3">No hay sandalias disponibles</h4>
+                    <p class="text-muted mb-4">
+                        No se encontraron sandalias en este momento.
+                    </p>
+                    <a th:href="@{/zapatos}" class="btn btn-outline-dark px-4 py-2">
+                        <i class="bi bi-arrow-left me-2"></i>Volver a zapatos
+                    </a>
                 </div>
             </div>
         </section>
 
         <footer th:replace="~{layout/plantilla :: footer}"/>
+        
+        <!-- Bootstrap Icons CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     </body>
 </html>

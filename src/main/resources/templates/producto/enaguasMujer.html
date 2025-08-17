@@ -11,85 +11,56 @@
 
         <section class="py-5">
             <div class="container">
-                <h2 class="text-center mb-5 fw-bold display-6">Enaguas & Faldas Modernas</h2>
+                <h2 class="text-center mb-5 fw-bold display-6" th:text="${categoria}">Faldas</h2>
 
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col">
+                <!-- Mostrar productos dinámicamente desde la base de datos -->
+                <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${productos != null and !productos.empty}">
+                    <div class="col" th:each="producto : ${productos}">
                         <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/falda_satinada.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Falda satinada rosa">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Falda Satinada Rosa</h5>
-                                    <p class="card-text">Falda midi fluida con brillo sutil y talle alto. Perfecta para una salida nocturna.</p>
-                                    <p class="card-text"><strong>Material:</strong> Satén</p>
-                                    <p class="card-text"><strong>Precio:</strong> ₡19,800</p>
-                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
-                                </div>
+                            <img th:src="@{'/img/' + ${producto.rutaImagen}}" 
+                                 class="card-img-top rounded-top-4" 
+                                 th:alt="${producto.nombre}" 
+                                 style="height: 450px; object-fit: cover;"
+                                 onerror="this.src='/img/default-image.jpg'">
+                            <div class="card-body text-center d-flex flex-column">
+                                <h5 class="card-title" th:text="${producto.nombre}">Nombre del Producto</h5>
+                                <p class="card-text" th:text="${producto.descripcion}">Descripción del producto</p>
+                                <p class="card-text"><strong>Material:</strong> <span th:text="${producto.material}">Material</span></p>
+                                <p class="card-text"><strong>Talla:</strong> <span th:text="${producto.talla}">Talla</span></p>
+                                <p class="card-text"><strong>Color:</strong> <span th:text="${producto.color}">Color</span></p>
+                                <p class="card-text"><strong>Precio:</strong> ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
+                                <p class="card-text" th:classappend="${producto.stockActual <= producto.stockMinimo} ? 'text-danger' : 'text-success'">
+                                    <strong>Stock:</strong> <span th:text="${producto.stockActual}">0</span> disponibles
+                                </p>
+                                <button class="btn btn-dark px-3 rounded-3 text-white mt-auto" 
+                                        th:disabled="${producto.stockActual <= 0}"
+                                        th:text="${producto.stockActual <= 0} ? 'Sin Stock' : 'Añadir al carrito'">
+                                    Añadir al carrito
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/falda_tableada.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Falda tableada negra">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Falda Tableada Urban</h5>
-                                    <p class="card-text">Falda corta de estilo colegial con pliegues marcados. Combinación perfecta con botas.</p>
-                                    <p class="card-text"><strong>Material:</strong> Poliéster</p>
-                                    <p class="card-text"><strong>Precio:</strong> ₡17,000</p>
-                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
-                                </div>
-                        </div>
+                </div>
+
+                <!-- Mensaje cuando no hay productos -->
+                <div class="text-center py-5" th:if="${productos == null or productos.empty}">
+                    <div class="mb-4">
+                        <i class="bi bi-box-seam text-muted" style="font-size: 4rem;"></i>
                     </div>
-                    <div class="col">
-                        <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/falda_demin.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Falda denim">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Falda Denim Raw</h5>
-                                    <p class="card-text">Falda de mezclilla con acabado raw-cut, bolsillos y botón metálico. Atemporal y versátil.</p>
-                                    <p class="card-text"><strong>Material:</strong> Mezclilla</p>
-                                    <p class="card-text"><strong>Precio:</strong> ₡15,900</p>
-                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/falda_cargo.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Falda cargo">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Falda Cargo Utility</h5>
-                                    <p class="card-text">Falda con bolsillos utilitarios, estilo urbano. Tiro bajo y cierre con cremallera oculta.</p>
-                                    <p class="card-text"><strong>Material:</strong> Gabardina de algodón</p>
-                                    <p class="card-text"><strong>Precio:</strong> ₡18,500</p>
-                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/falda_asimetrica.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Falda asimétrica">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Falda Asimétrica Noir</h5>
-                                    <p class="card-text">Falda negra corta con diseño asimétrico y cierre lateral. Sofisticada y edgy.</p>
-                                    <p class="card-text"><strong>Material:</strong> Poliéster con elastano</p>
-                                    <p class="card-text"><strong>Precio:</strong> ₡19,900</p>
-                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 shadow-sm rounded-4 border-0">
-                            <img th:src="@{/img/falda_dropeada.jpg}" class="card-img-top rounded-top-4" style="height: 450px; object-fit: cover;" alt="Falda drapeada">
-                                <div class="card-body text-center d-flex flex-column">
-                                    <h5 class="card-title">Falda Drapeada Soft</h5>
-                                    <p class="card-text">Falda drapeada con tela fluida y suave. Ideal para un look chic de día o noche.</p>
-                                    <p class="card-text"><strong>Material:</strong> Viscosa</p>
-                                    <p class="card-text"><strong>Precio:</strong> ₡22,000</p>
-                                    <a href="#" class="btn btn-dark px-3 rounded-3 text-white mt-auto">Añadir al carrito</a>
-                                </div>
-                        </div>
-                    </div>
+                    <h4 class="fw-bold mb-3">No hay productos disponibles</h4>
+                    <p class="text-muted mb-4">
+                        No se encontraron productos en esta categoría en este momento.
+                    </p>
+                    <a th:href="@{/mujer}" class="btn btn-outline-dark px-4 py-2">
+                        <i class="bi bi-arrow-left me-2"></i>Volver a categorías
+                    </a>
                 </div>
             </div>
         </section>
 
         <footer th:replace="~{layout/plantilla :: footer}"/>
+        
+        <!-- Bootstrap Icons CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     </body>
 </html>
