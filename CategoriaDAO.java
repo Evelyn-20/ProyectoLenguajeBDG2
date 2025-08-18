@@ -1,11 +1,24 @@
-import java.sql.*;
+package com.proyecto.dao;
+
+import com.proyecto.domain.Categoria;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaDAO {
 
-    public void registrar(Categoria c) {
-        String sql = "INSERT INTO categorias(nombre_categoria, estado) VALUES(?, 1)";
+    private Categoria mapRow(ResultSet rs) throws Exception {
+        Categoria categoria = new Categoria();
+        categoria.setIdCategoria(rs.getInt("id_categoria"));
+        categoria.setNombre(rs.getString("nombre_categoria"));
+        categoria.setEstado(rs.getInt("estado"));
+        return categoria;
+    }
+
+    public void registrarCategoria(Categoria c) {
+        String sql = "INSERT INTO categorias (nombre_categoria, estado) VALUES (?, 1)";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, c.getNombre());
@@ -15,26 +28,25 @@ public class CategoriaDAO {
         }
     }
 
-    public Categoria consultar(int idCategoria) {
-        Categoria c = null;
-        String sql = "SELECT * FROM categorias WHERE id_categoria=?";
+    public Categoria findById(int idCategoria) {
+        Categoria categoria = null;
+        String sql = "SELECT * FROM categorias WHERE id_categoria = ?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idCategoria);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                c = new Categoria();
-                c.setIdCategoria(rs.getInt("id_categoria"));
-                c.setNombre(rs.getString("nombre_categoria"));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    categoria = mapRow(rs);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return c;
+        return categoria;
     }
 
-    public void actualizar(Categoria c) {
-        String sql = "UPDATE categorias SET nombre_categoria=? WHERE id_categoria=?";
+    public void actualizarCategoria(Categoria c) {
+        String sql = "UPDATE categorias SET nombre_categoria = ? WHERE id_categoria = ?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, c.getNombre());
@@ -45,8 +57,8 @@ public class CategoriaDAO {
         }
     }
 
-    public void deshabilitar(int idCategoria) {
-        String sql = "UPDATE categorias SET estado=0 WHERE id_categoria=?";
+    public void deshabilitarCategoria(int idCategoria) {
+        String sql = "UPDATE categorias SET estado = 0 WHERE id_categoria = ?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idCategoria);
@@ -56,17 +68,14 @@ public class CategoriaDAO {
         }
     }
 
-    public List<Categoria> listar() {
+    public List<Categoria> findAll() {
         List<Categoria> lista = new ArrayList<>();
-        String sql = "SELECT * FROM categorias WHERE estado=1";
+        String sql = "SELECT * FROM categorias WHERE estado = 1 ORDER BY id_categoria";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                Categoria c = new Categoria();
-                c.setIdCategoria(rs.getInt("id_categoria"));
-                c.setNombre(rs.getString("nombre_categoria"));
-                lista.add(c);
+                lista.add(mapRow(rs));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,4 +83,3 @@ public class CategoriaDAO {
         return lista;
     }
 }
-
