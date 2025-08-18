@@ -1,13 +1,21 @@
 --------------------------------------------------------------------------------
 /*Triggers*/
 --------------------------------------------------------------------------------
--- Trigger #1: Asigna automáticamente la fecha de registro
--- cuando se inserta un nuevo producto
-CREATE OR REPLACE TRIGGER trg_producto_fecha
-BEFORE INSERT ON producto
+-- Trigger #1: Valida que el codigo del producto no este repetido
+CREATE OR REPLACE TRIGGER trg_valida_codigo_producto
+BEFORE INSERT OR UPDATE OF CODIGO_PRODUCTO ON PRODUCTO
 FOR EACH ROW
+DECLARE
+    v_count NUMBER;
 BEGIN
-    :NEW.fecha_registro := SYSDATE;
+    SELECT COUNT(*) INTO v_count
+    FROM PRODUCTO
+    WHERE CODIGO_PRODUCTO = :NEW.CODIGO_PRODUCTO
+    AND ID_PRODUCTO != NVL(:NEW.ID_PRODUCTO, -1);
+    
+    IF v_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'El código de producto ya existe. Debe ser único.');
+    END IF;
 END;
 /
 -- Trigger #2: Convierte siempre el correo de cliente a minúsculas
@@ -19,27 +27,35 @@ BEGIN
     :NEW.email := LOWER(:NEW.email);
 END;
 /
--- Trigger #3: Registra automáticamente en la tabla de auditoría
--- cada vez que se inserta una nueva venta
--- (requiere la tabla auditoria_ventas y la secuencia seq_auditoria_ventas)
-CREATE OR REPLACE TRIGGER trg_auditoria_ventas
-AFTER INSERT ON venta
+-- Trigger #3: Valida que haya stock necesario para vender
+CREATE OR REPLACE TRIGGER trg_validar_stock_venta
+BEFORE INSERT ON DETALLE_VENTA
 FOR EACH ROW
+DECLARE
+    v_stock_actual NUMBER;
 BEGIN
-    INSERT INTO auditoria_ventas(id, venta_id, fecha_auditoria, accion)
-    VALUES(seq_auditoria_ventas.NEXTVAL, :NEW.id, SYSDATE, 'NUEVA_VENTA');
+    -- Obtener el stock actual del producto
+    SELECT STOCK_ACTUAL INTO v_stock_actual
+    FROM INVENTARIO
+    WHERE INVENTARIO_ID = :NEW.INVENTARIO_ID;
+    
+    -- Validar que haya suficiente stock
+    IF v_stock_actual < :NEW.CANTIDAD THEN
+        RAISE_APPLICATION_ERROR(-20001, 
+            'No hay suficiente stock para este producto. Stock actual: ' || v_stock_actual);
+    END IF;
 END;
 /
 -- Trigger #4: Evita que se creen asociaciones con productos inactivos
 CREATE OR REPLACE TRIGGER trg_asociacion_estado
-BEFORE INSERT ON asociacion_proveedor_producto
+BEFORE INSERT ON PRODUCTO_PROVEEDOR
 FOR EACH ROW
 DECLARE
     v_estado VARCHAR2(20);
 BEGIN
     SELECT estado INTO v_estado
     FROM producto
-    WHERE id = :NEW.producto_id;
+    WHERE ID_PRODUCTO = :NEW.producto_id;
 
     IF v_estado <> 'Activo' THEN
         RAISE_APPLICATION_ERROR(-20001, 'No se puede asociar un producto inactivo.');
@@ -52,8 +68,8 @@ CREATE OR REPLACE TRIGGER trg_actualiza_stock
 AFTER INSERT ON detalle_venta
 FOR EACH ROW
 BEGIN
-    UPDATE producto
-    SET stock = stock - :NEW.cantidad
-    WHERE id = :NEW.producto_id;
+    UPDATE inventario
+    SET STOCK_ACTUAL = STOCK_ACTUAL - :NEW.CANTIDAD
+    WHERE INVENTARIO_ID = :NEW.INVENTARIO_ID;
 END;
 /

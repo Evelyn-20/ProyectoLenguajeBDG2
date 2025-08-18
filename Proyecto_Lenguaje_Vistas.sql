@@ -187,11 +187,60 @@ JOIN
 CREATE OR REPLACE VIEW vista_categorias_con_cantidad AS
 SELECT 
     c.ID_CATEGORIA,
+    c.CODIGO_CATEGORIA,
     c.NOMBRE_CATEGORIA,
+    c.DESRIPCION_CATEGORIA,
+    c.ESTADO,
     COUNT(p.ID_PRODUCTO) AS cantidad_productos
-FROM categoria c
-LEFT JOIN producto p ON c.ID_CATEGORIA = p.ID_CATEGORIA AND p.estado = 'Activo'
-GROUP BY c.ID_CATEGORIA, c.NOMBRE_CATEGORIA;
+FROM 
+    CATEGORIA c
+LEFT JOIN 
+    PRODUCTO p ON c.ID_CATEGORIA = p.ID_CATEGORIA AND p.ESTADO = 'Activo'
+WHERE 
+    c.ESTADO = 'Activo'
+GROUP BY 
+    c.ID_CATEGORIA, c.CODIGO_CATEGORIA, c.NOMBRE_CATEGORIA, c.DESRIPCION_CATEGORIA, c.ESTADO;
+    
+CREATE OR REPLACE VIEW vista_todas_categorias_con_cantidad AS
+SELECT 
+    c.ID_CATEGORIA,
+    c.CODIGO_CATEGORIA,
+    c.NOMBRE_CATEGORIA,
+    c.DESRIPCION_CATEGORIA,
+    c.ESTADO,
+    COUNT(p.ID_PRODUCTO) AS cantidad_productos
+FROM 
+    CATEGORIA c
+LEFT JOIN 
+    PRODUCTO p ON c.ID_CATEGORIA = p.ID_CATEGORIA AND p.ESTADO = 'Activo'
+GROUP BY 
+    c.ID_CATEGORIA, c.CODIGO_CATEGORIA, c.NOMBRE_CATEGORIA, c.DESRIPCION_CATEGORIA, c.ESTADO;
+
+CREATE OR REPLACE VIEW vista_categorias_activas AS
+SELECT 
+    ID_CATEGORIA,
+    CODIGO_CATEGORIA,
+    NOMBRE_CATEGORIA,
+    DESRIPCION_CATEGORIA,
+    ESTADO
+FROM 
+    CATEGORIA
+WHERE 
+    ESTADO = 'Activo';
+
+--------------------------------------------------------------------------------
+-- Vista que muestra solo las categorías inactivas
+CREATE OR REPLACE VIEW vista_categorias_inactivas AS
+SELECT 
+    ID_CATEGORIA,
+    CODIGO_CATEGORIA,
+    NOMBRE_CATEGORIA,
+    DESRIPCION_CATEGORIA,
+    ESTADO
+FROM 
+    CATEGORIA
+WHERE 
+    ESTADO = 'Inactivo';
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 -- vista_ventas_detalle
