@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Nous - Cambiar Estado de Venta</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    </head>
+    <body class="d-flex flex-column min-vh-100 bg-light">
+
+        <header th:replace="~{layout/plantilla :: header}"></header>
+
+        <!-- Mensajes flash -->
+        <div th:if="${success}" class="container mt-3">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span th:text="${success}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+        
+        <div th:if="${error}" class="container mt-3">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+
+        <section class="py-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card shadow-sm rounded-4 border-0">
+                            <div class="card-body p-5">
+                                <!-- Encabezado -->
+                                <div class="d-flex justify-content-between align-items-center mb-5">
+                                    <h2 class="fw-bold display-6 mb-0">
+                                        <i class="bi bi-pencil-square me-2"></i>Cambiar Estado de Venta
+                                    </h2>
+                                    <a th:href="@{/ventas/listado}" class="btn btn-outline-secondary px-4 py-2 rounded-3">
+                                        <i class="bi bi-arrow-left me-2"></i>Volver
+                                    </a>
+                                </div>
+
+                                <!-- Información de la venta -->
+                                <div class="card bg-light border-0 rounded-3 mb-4" th:if="${venta != null}">
+                                    <div class="card-body p-4">
+                                        <h5 class="fw-bold mb-4">
+                                            <i class="bi bi-receipt me-2"></i>Información de la Venta
+                                        </h5>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label text-muted fw-semibold small">ID Venta</label>
+                                                <p class="mb-0 fw-bold" th:text="${venta.ventaId}">1</p>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label text-muted fw-semibold small">Código</label>
+                                                <p class="mb-0 fw-bold" th:text="${venta.codigoVenta}">V12345</p>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label text-muted fw-semibold small">Cliente ID</label>
+                                                <p class="mb-0" th:text="${venta.clienteId}">1</p>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label text-muted fw-semibold small">Fecha</label>
+                                                <p class="mb-0" th:text="${venta.fechaVenta != null ? #temporals.format(venta.fechaVenta, 'dd/MM/yyyy HH:mm') : 'N/A'}">01/01/2024 10:00</p>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label text-muted fw-semibold small">Total</label>
+                                                <p class="mb-0 fw-bold" th:text="${'₡' + #numbers.formatDecimal(venta.total, 0, 'COMMA', 2, 'POINT')}">₡78,000.00</p>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label text-muted fw-semibold small">Estado Actual</label>
+                                                <p class="mb-0">
+                                                    <span class="badge rounded-3" 
+                                                          th:classappend="${venta.estado == 'Pendiente' ? 'bg-warning text-dark' : 
+                                                          venta.estado == 'Confirmada' ? 'bg-info text-white' : 
+                                                          venta.estado == 'Completada' ? 'bg-success' : 
+                                                          venta.estado == 'Cancelada' ? 'bg-danger' : 
+                                                          venta.estado == 'En Proceso' ? 'bg-primary' : 'bg-secondary'}"
+                                                        th:text="${venta.estado}">Estado</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Formulario para cambiar estado -->
+                                <form th:action="@{/ventas/cambiar-estado}" method="POST" th:if="${venta != null and (estados != null and !estados.empty)}" class="needs-validation" novalidate>
+                                    <input type="hidden" name="ventaId" th:value="${venta.ventaId}"/>
+
+                                    <div class="mb-4">
+                                        <label for="estado" class="form-label fw-semibold">Nuevo Estado</label>
+                                        <select class="form-select rounded-3 py-2" name="estado" id="estado" required>
+                                            <option value="">Seleccionar estado</option>
+                                            <option th:each="estado : ${estados}" 
+                                                    th:value="${estado}" 
+                                                    th:text="${estado}"
+                                                    th:disabled="${estado == venta.estado}">Estado</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Por favor seleccione un estado válido
+                                        </div>
+                                        <div class="form-text">
+                                            Solo se muestran los estados válidos para la transición actual.
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="observaciones" class="form-label fw-semibold">Observaciones (Opcional)</label>
+                                        <textarea class="form-control rounded-3" id="observaciones" name="observaciones" rows="3" 
+                                                  placeholder="Ingrese cualquier observación sobre el cambio de estado..."></textarea>
+                                    </div>
+
+                                    <div class="d-flex gap-3 mt-4">
+                                        <button type="submit" class="btn btn-dark px-4 py-3 rounded-3 fw-bold text-uppercase flex-grow-1">
+                                            <i class="bi bi-save me-2"></i>Actualizar Estado
+                                        </button>
+                                        <a th:href="@{/ventas/listado}" class="btn btn-outline-secondary px-4 py-3 rounded-3 fw-bold text-uppercase">
+                                            <i class="bi bi-x-circle me-2"></i>Cancelar
+                                        </a>
+                                    </div>
+                                </form>
+
+                                <!-- Mensaje de error si no se encuentra la venta -->
+                                <div class="text-center py-5" th:if="${venta == null}">
+                                    <div class="mb-4">
+                                        <i class="bi bi-exclamation-triangle" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <h4 class="fw-bold mb-3">Venta no encontrada</h4>
+                                    <p class="text-muted">No se pudo cargar la información de la venta.</p>
+                                    <a th:href="@{/ventas/listado}" class="btn btn-dark px-4 py-2">
+                                        <i class="bi bi-arrow-left me-2"></i>Volver al Listado
+                                    </a>
+                                </div>
+
+                                <!-- Estados no modificables -->
+                                <div class="alert alert-info" th:if="${venta != null and (estados == null or estados.empty)}">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Esta venta no puede cambiar de estado. Las ventas <strong th:text="${venta.estado}">completadas</strong> son finales.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Validación del formulario
+            (() => {
+                'use strict'
+                const forms = document.querySelectorAll('.needs-validation')
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
+        </script>
+    </body>
+</html>

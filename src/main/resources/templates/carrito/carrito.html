@@ -1,210 +1,243 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      xmlns:th="http://www.thymeleaf.org">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>Nous - Listado de Productos</title>
+        <title>Nous - Carrito de Compras</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    </head>
-    <body class="d-flex flex-column min-vh-100 bg-light">
-        
-        <header th:replace="~{layout/plantilla :: header}"></header>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+                </head>
+                <body class="d-flex flex-column min-vh-100 bg-light">
+                    <header th:replace="~{layout/plantilla :: header}"></header>
 
-        <section class="py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h2 class="text-center mb-5 fw-bold display-6">Mi Carrito de Compras</h2>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <!-- Productos en el carrito -->
-                    <div class="col-lg-8 mb-4">
-                        <div class="card shadow-sm rounded-4 border-0">
-                            <div class="card-body p-4">
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <h5 class="fw-bold mb-0">Productos</h5>
-                                    <span class="badge bg-primary">3 items</span>
-                                </div>
-                                
-                                <!-- Item del carrito -->
-                                <div class="cart-item mb-4">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-2">
-                                            <img src="https://via.placeholder.com/80x80" 
-                                                 class="img-fluid rounded-3" 
-                                                 alt="Producto"
-                                                 style="height: 80px; width: 80px; object-fit: cover;">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <h6 class="fw-bold mb-1">Producto de Ejemplo</h6>
-                                            <p class="text-muted mb-0">Marca Ejemplo</p>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <div class="input-group input-group-sm">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-                                                <input type="number" class="form-control text-center rounded-3" 
-                                                       value="2" 
-                                                       min="1">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <p class="fw-bold mb-0">₡25,000</p>
-                                        </div>
-                                        <div class="col-md-1 text-center">
-                                            <button class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
+                    <section class="py-5">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h2 class="text-center mb-5 fw-bold display-6">Mi Carrito de Compras</h2>
+                                    <div th:if="${error}" class="alert alert-danger" role="alert">
+                                        <span th:text="${error}"></span>
                                     </div>
-                                    <hr class="my-3">
-                                </div>
-                                
-                                <!-- Segundo item -->
-                                <div class="cart-item mb-4">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-2">
-                                            <img src="https://via.placeholder.com/80x80" 
-                                                 class="img-fluid rounded-3" 
-                                                 alt="Producto"
-                                                 style="height: 80px; width: 80px; object-fit: cover;">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <h6 class="fw-bold mb-1">Otro Producto</h6>
-                                            <p class="text-muted mb-0">Otra Marca</p>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <div class="input-group input-group-sm">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-                                                <input type="number" class="form-control text-center rounded-3" 
-                                                       value="1" 
-                                                       min="1">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <p class="fw-bold mb-0">₡35,000</p>
-                                        </div>
-                                        <div class="col-md-1 text-center">
-                                            <button class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <hr class="my-3">
-                                </div>
-                                
-                                <!-- Tercer item -->
-                                <div class="cart-item mb-4">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-2">
-                                            <img src="https://via.placeholder.com/80x80" 
-                                                 class="img-fluid rounded-3" 
-                                                 alt="Producto"
-                                                 style="height: 80px; width: 80px; object-fit: cover;">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <h6 class="fw-bold mb-1">Tercer Producto</h6>
-                                            <p class="text-muted mb-0">Tercera Marca</p>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <div class="input-group input-group-sm">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-                                                <input type="number" class="form-control text-center rounded-3" 
-                                                       value="1" 
-                                                       min="1">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <p class="fw-bold mb-0">₡15,000</p>
-                                        </div>
-                                        <div class="col-md-1 text-center">
-                                            <button class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <hr class="my-3">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Resumen del pedido -->
-                    <div class="col-lg-4">
-                        <div class="card shadow-sm rounded-4 border-0 sticky-top">
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold mb-4">Resumen del Pedido</h5>
-                                
-                                <div class="d-flex justify-content-between mb-3">
-                                    <span>Subtotal:</span>
-                                    <span>₡75,000</span>
-                                </div>
-                                
-                                <div class="d-flex justify-content-between mb-3">
-                                    <span>Envío:</span>
-                                    <span>₡3,000</span>
-                                </div>
-                                
-                                <hr>
-                                
-                                <div class="d-flex justify-content-between mb-4">
-                                    <span class="fw-bold fs-5">Total:</span>
-                                    <span class="fw-bold fs-5">₡78,000</span>
-                                </div>
-                                
-                                <div class="d-grid gap-2">
-                                    <a href="/checkout" 
-                                       class="btn btn-dark px-4 py-3 rounded-3 text-white fw-bold text-uppercase">
-                                        Proceder al Pago
-                                    </a>
-                                    
-                                    <a href="/productos" 
-                                       class="btn btn-outline-dark px-4 py-2 rounded-3 fw-semibold">
-                                        Continuar Comprando
-                                    </a>
-                                </div>
-                                
-                                <!-- Información adicional -->
-                                <div class="mt-4 pt-3 border-top">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-shield-alt text-success me-2"></i>
-                                        <small class="text-muted">Compra segura</small>
+
+                            <div class="row">
+                                <!-- Productos en el carrito -->
+                                <div class="col-lg-8 mb-4">
+                                    <div class="card shadow-sm rounded-4 border-0">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <h5 class="fw-bold mb-0">Productos</h5>
+                                                <span class="badge bg-primary" th:text="${cantidadItems} + ' items'">0 items</span>
+                                            </div>
+
+                                            <!-- Mensaje cuando el carrito está vacío -->
+                                            <div th:if="${carritoItems == null or carritoItems.empty}" class="text-center py-5">
+                                                <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                                                <h5 class="fw-bold">Tu carrito está vacío</h5>
+                                                <p class="text-muted">Agrega productos para continuar</p>
+                                            </div>
+
+                                            <!-- Items del carrito -->
+                                            <div th:each="item : ${carritoItems}" class="cart-item mb-4">
+                                                <div class="row align-items-center">
+                                                    <div class="col-md-2">
+                                                        <img th:src="@{'/img/' + ${item.imagenProducto}}" 
+                                                             class="img-fluid rounded-3" 
+                                                             alt="Producto"
+                                                             style="height: 80px; width: 80px; object-fit: cover;"
+                                                             onerror="this.src='https://via.placeholder.com/80x80/cccccc/333333?text=Sin+Imagen'">
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <h6 class="fw-bold mb-1" th:text="${item.nombreProducto}">Nombre Producto</h6>
+                                                        <p class="text-muted mb-0" th:text="'₡' + ${#numbers.formatDecimal(item.precioUnitario, 1, 2, 'COMMA')} + ' c/u'">Precio</p>
+                                                    </div>
+                                                    <div class="col-md-2 text-center">
+                                                        <div class="input-group input-group-sm">
+                                                            <button class="btn btn-outline-secondary" 
+                                                                    onclick="actualizarCantidad(this, 'decrement')"
+                                                                    th:data-inventario-id="${item.inventarioId}">
+                                                                <i class="fas fa-minus"></i>
+                                                            </button>
+                                                            <input type="number" class="form-control text-center rounded-3 cantidad-item" 
+                                                                   th:value="${item.cantidad}" 
+                                                                   min="1"
+                                                                   th:data-inventario-id="${item.inventarioId}">
+                                                                <button class="btn btn-outline-secondary" 
+                                                                        onclick="actualizarCantidad(this, 'increment')"
+                                                                        th:data-inventario-id="${item.inventarioId}">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 text-center">
+                                                        <p class="fw-bold mb-0" th:text="'₡' + ${#numbers.formatDecimal(item.subtotalDetalle, 1, 2, 'COMMA')}">Subtotal</p>
+                                                    </div>
+                                                    <div class="col-md-1 text-center">
+                                                        <button class="btn btn-outline-danger btn-sm"
+                                                                onclick="eliminarDelCarrito(${item.inventarioId})">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <hr class="my-3">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="fas fa-truck text-primary me-2"></i>
-                                        <small class="text-muted">Envío rápido</small>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <i class="fas fa-undo text-warning me-2"></i>
-                                        <small class="text-muted">Devoluciones fáciles</small>
+                                </div>
+
+                                <!-- Resumen del pedido -->
+                                <div class="col-lg-4">
+                                    <div class="card shadow-sm rounded-4 border-0 sticky-top">
+                                        <div class="card-body p-4">
+                                            <h5 class="fw-bold mb-4">Resumen del Pedido</h5>
+
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <span>Subtotal:</span>
+                                                <span th:text="'₡' + ${#numbers.formatDecimal(subtotal, 1, 2, 'COMMA')}">₡0</span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <span>Envío:</span>
+                                                <span th:text="'₡' + ${#numbers.formatDecimal(envio, 1, 2, 'COMMA')}">₡0</span>
+                                            </div>
+
+                                            <hr>
+
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <span class="fw-bold fs-5">Total:</span>
+                                                    <span class="fw-bold fs-5" th:text="'₡' + ${#numbers.formatDecimal(total, 1, 2, 'COMMA')}">₡0</span>
+                                                </div>
+
+                                                <div class="d-grid gap-2">
+                                                    <a th:href="@{/checkout}" 
+                                                       th:classappend="${carritoItems == null or carritoItems.empty} ? 'disabled' : ''"
+                                                       class="btn btn-dark px-4 py-3 rounded-3 text-white fw-bold text-uppercase">
+                                                        Proceder al Pago
+                                                    </a>
+
+                                                    <button onclick="window.history.back()" 
+                                                            class="btn btn-outline-dark px-4 py-2 rounded-3 fw-semibold">
+                                                        <i class="fas fa-arrow-left me-2"></i>
+                                                        Continuar Comprando
+                                                    </button>
+                                                </div>
+
+                                                <!-- Información adicional -->
+                                                <div class="mt-4 pt-3 border-top">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <i class="fas fa-shield-alt text-success me-2"></i>
+                                                        <small class="text-muted">Compra segura</small>
+                                                    </div>
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <i class="fas fa-truck text-primary me-2"></i>
+                                                        <small class="text-muted">Envío rápido</small>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-undo text-warning me-2"></i>
+                                                        <small class="text-muted">Devoluciones fáciles</small>
+                                                    </div>
+                                                </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <footer th:replace="~{layout/plantilla :: footer}"></footer>
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-</html>
+                    </section>
+
+                    <footer th:replace="~{layout/plantilla :: footer}"></footer>
+
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        // Función para actualizar la cantidad
+                        function actualizarCantidad(button, action) {
+                        const inventarioId = button.getAttribute('data-inventario-id');
+                        const input = document.querySelector(`.cantidad-item[data-inventario-id="${inventarioId}"]`);
+                        let cantidad = parseInt(input.value);
+
+                        if (action === 'increment') {
+                        cantidad += 1;
+                        } else if (action === 'decrement' && cantidad > 1) {
+                        cantidad -= 1;
+                        }
+
+                        input.value = cantidad;
+
+                        // Enviar la actualización al servidor
+                        $.ajax({
+                        url: '/carrito/actualizar',
+                        type: 'POST',
+                        data: {
+                        inventarioId: inventarioId,
+                        cantidad: cantidad
+                        },
+                        success: function(response) {
+                        if (response.success) {
+                        // Actualizar la vista
+                        location.reload();
+                        } else {
+                        alert(response.message);
+                        }
+                        },
+                        error: function() {
+                        alert('Error al actualizar la cantidad');
+                        }
+                        });
+                        }
+
+                        // Función para eliminar un producto del carrito
+                        function eliminarDelCarrito(inventarioId) {
+                        if (confirm('¿Estás seguro de eliminar este producto del carrito?')) {
+                        $.ajax({
+                        url: '/carrito/eliminar',
+                        type: 'POST',
+                        data: {
+                        inventarioId: inventarioId
+                        },
+                        success: function(response) {
+                        if (response.success) {
+                        location.reload();
+                        } else {
+                        alert(response.message);
+                        }
+                        },
+                        error: function() {
+                        alert('Error al eliminar el producto');
+                        }
+                        });
+                        }
+                        }
+
+                        // Función para actualizar cantidades cuando se edita directamente el input
+                        document.querySelectorAll('.cantidad-item').forEach(input => {
+                        input.addEventListener('change', function() {
+                        const inventarioId = this.getAttribute('data-inventario-id');
+                        const cantidad = parseInt(this.value);
+
+                        if (cantidad < 1) {
+                        this.value = 1;
+                        return;
+                        }
+
+                        $.ajax({
+                        url: '/carrito/actualizar',
+                        type: 'POST',
+                        data: {
+                        inventarioId: inventarioId,
+                        cantidad: cantidad
+                        },
+                        success: function(response) {
+                        if (!response.success) {
+                        alert(response.message);
+                        location.reload();
+                        }
+                        },
+                        error: function() {
+                        alert('Error al actualizar la cantidad');
+                        }
+                        });
+                        });
+                        });
+                    </script>
+                </body>
+                </html>

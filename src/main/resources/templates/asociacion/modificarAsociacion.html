@@ -3,11 +3,18 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        <title>Nous - Actualizar Asociación</title>
+        <title>Nous - Modificar Asociación</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body class="d-flex flex-column min-vh-100 bg-light">
         <header th:replace="~{layout/plantilla :: header}"></header>
+        
+        <!-- Mensajes de éxito/error -->
+        <div th:if="${mensaje}" class="alert alert-dismissible fade show m-3" 
+             th:classappend="${tipoMensaje == 'success'} ? 'alert-success' : (${tipoMensaje == 'warning'} ? 'alert-warning' : 'alert-danger')">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
         
         <section class="py-5">
             <div class="container">
@@ -15,64 +22,99 @@
                     <div class="col-md-8">
                         <div class="card shadow-sm rounded-4 border-0">
                             <div class="card-body p-5">
-                                <h2 class="text-center mb-5 fw-bold display-6">Actualizar Asociación Proveedor y Producto</h2>
+                                <h2 class="text-center mb-5 fw-bold display-6">Modificar Asociación Producto-Proveedor</h2>
                                 
-                                <form th:action="@{/asociacion/actualizar}" th:object="${asociacion}"
-                                      method="POST" enctype="multipart/form-data">
+                                <form th:action="@{/asociacion/modificar}" th:object="${asociacion}"
+                                      method="POST" class="needs-validation" novalidate>
                                     
                                     <!-- Campo oculto para el ID -->
-                                    <input type="hidden" th:field="*{id}" name="id"/>
+                                    <input type="hidden" th:field="*{productoProveedorId}"/>
                                     
                                     <div class="mb-4">
-                                        <label for="codigo" class="form-label fw-semibold">Código</label>
-                                        <input type="text" class="form-control rounded-3 py-2" 
-                                               th:field="*{codigo}" name="codigo" id="codigo" required="true"/>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <label for="producto" class="form-label fw-semibold">Producto que vende el proveedor</label>
-                                        <select class="form-select rounded-3 py-2" th:field="*{producto}" 
-                                                name="producto" id="producto" required="true">
+                                        <label for="productoId" class="form-label fw-semibold">Producto *</label>
+                                        <select class="form-select rounded-3 py-2" 
+                                                th:field="*{productoId}" 
+                                                id="productoId" required>
                                             <option value="">Seleccionar producto</option>
-                                            <option value="pantalones">Pantalones</option>
-                                            <option value="camisas">Camisas</option>
-                                            <option value="zapatos">Zapatos</option>
-                                            <option value="bolsos">Bolsos</option>
+                                            <option th:each="producto : ${productos}" 
+                                                    th:value="${producto.idProducto}" 
+                                                    th:text="${producto.codigo + ' - ' + producto.nombre}"
+                                                    th:selected="${producto.idProducto == asociacion.productoId}">
+                                            </option>
                                         </select>
+                                        <div class="invalid-feedback">
+                                            Por favor seleccione un producto
+                                        </div>
                                     </div>
                                     
                                     <div class="mb-4">
-                                        <label for="proveedor" class="form-label fw-semibold">Proveedor</label>
-                                        <select class="form-select rounded-3 py-2" th:field="*{proveedor}" 
-                                                name="proveedor" id="proveedor" required="true">
+                                        <label for="proveedorId" class="form-label fw-semibold">Proveedor *</label>
+                                        <select class="form-select rounded-3 py-2" 
+                                                th:field="*{proveedorId}" 
+                                                id="proveedorId" required>
                                             <option value="">Seleccionar proveedor</option>
-                                            <option value="juan_perez">Juan Pérez</option>
-                                            <option value="maria_sanchez">María Sanchez</option>
-                                            <option value="esteban_mora">Esteban Mora</option>
+                                            <option th:each="proveedor : ${proveedores}" 
+                                                    th:value="${proveedor.idProveedor}" 
+                                                    th:text="${proveedor.nombre + ' ' + proveedor.apellidos}"
+                                                    th:selected="${proveedor.idProveedor == asociacion.proveedorId}">
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Por favor seleccione un proveedor
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <label for="precioCompra" class="form-label fw-semibold">Precio Compra (₡) *</label>
+                                        <input type="number" class="form-control rounded-3 py-2" 
+                                               th:field="*{precioCompra}" 
+                                               id="precioCompra" 
+                                               step="0.01" 
+                                               min="0.01" 
+                                               required/>
+                                        <div class="invalid-feedback">
+                                            Por favor ingrese un precio válido mayor que cero
+                                        </div>
+                                        <small class="form-text text-muted">
+                                            Precio actual: ₡<span th:text="${#numbers.formatDecimal(asociacion.precioCompra, 1, 2)}"></span>
+                                        </small>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <label for="estado" class="form-label fw-semibold">Estado</label>
+                                        <select class="form-select rounded-3 py-2" 
+                                                th:field="*{estado}" 
+                                                id="estado">
+                                            <option value="Activo">Activo</option>
+                                            <option value="Inactivo">Inactivo</option>
                                         </select>
                                     </div>
                                     
+                                    <!-- Información adicional de solo lectura -->
                                     <div class="mb-4">
-                                        <label for="precio" class="form-label fw-semibold">Precio Compra</label>
-                                        <input type="number" class="form-control rounded-3 py-2" 
-                                               th:field="*{precio}" name="precio" id="precio" 
-                                               step="0.01" min="0" required="true"/>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" 
-                                                   th:field="*{activo}" name="activo" id="activo"/>
-                                            <label class="form-check-label fw-semibold" for="activo">Activo</label>
+                                        <div class="card bg-light">
+                                            <div class="card-body">
+                                                <h6 class="card-title fw-semibold">Información actual:</h6>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <small class="text-muted">Producto actual:</small><br>
+                                                        <span th:text="${asociacion.codigoProducto + ' - ' + asociacion.nombreProducto}"></span>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <small class="text-muted">Proveedor actual:</small><br>
+                                                        <span th:text="${asociacion.nombreCompletoProveedor}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     
                                     <div class="d-flex gap-3 mt-4">
                                         <button type="submit" class="btn btn-primary px-4 py-3 rounded-3 fw-bold text-uppercase flex-grow-1">
-                                            Actualizar Asociación
+                                            <i class="fas fa-save me-2"></i>Actualizar Asociación
                                         </button>
-                                        <a th:href="@{/asociacion/listar}" class="btn btn-secondary px-4 py-3 rounded-3 fw-bold text-uppercase">
-                                            Cancelar
+                                        <a th:href="@{/asociacion/listado}" class="btn btn-secondary px-4 py-3 rounded-3 fw-bold text-uppercase">
+                                            <i class="fas fa-times me-2"></i>Cancelar
                                         </a>
                                     </div>
                                 </form>
@@ -86,5 +128,36 @@
         <footer th:replace="~{layout/plantilla :: footer}"></footer>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+        <script>
+            // Validación de formulario
+            (() => {
+                'use strict'
+                const forms = document.querySelectorAll('.needs-validation')
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
+            
+            // Confirmar cambios importantes
+            document.querySelector('form').addEventListener('submit', function(e) {
+                const originalProducto = '[[${asociacion.nombreProducto}]]';
+                const originalProveedor = '[[${asociacion.nombreCompletoProveedor}]]';
+                const currentProducto = document.querySelector('#productoId option:checked').text;
+                const currentProveedor = document.querySelector('#proveedorId option:checked').text;
+                
+                if (originalProducto !== currentProducto || originalProveedor !== currentProveedor) {
+                    if (!confirm('¿Está seguro de cambiar la asociación del producto o proveedor?')) {
+                        e.preventDefault();
+                    }
+                }
+            });
+        </script>
     </body>
 </html>

@@ -14,6 +14,8 @@ public class Carrito {
     private double total;
     private String medioPago;
     private String estado;
+    
+    private String cliente;
 
     private Long detalleId;
     private Long inventarioId;
@@ -21,6 +23,10 @@ public class Carrito {
     private double precioUnitario;
     private double subtotalDetalle;
     private double descuentoItem;
+    
+    private String nombreProducto;
+    private String imagenProducto;
+    private String descripcionProducto;
     
     // Getters y Setters
     public Long getVentaId() {
@@ -149,5 +155,37 @@ public class Carrito {
     
     public void setDescuentoItem(double descuentoItem) {
         this.descuentoItem = descuentoItem;
+    }
+    
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+    
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+    
+    public String getImagenProducto() {
+        return imagenProducto;
+    }
+    
+    public void setImagenProducto(String imagenProducto) {
+        this.imagenProducto = imagenProducto;
+    }
+    
+    public String getDescripcionProducto() {
+        return descripcionProducto;
+    }
+    
+    public void setDescripcionProducto(String descripcionProducto) {
+        this.descripcionProducto = descripcionProducto;
+    }
+    
+    public String getCliente() {
+        return cliente;
+    }
+    
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 }

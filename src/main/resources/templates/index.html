@@ -16,7 +16,7 @@
                         <div class="carousel-caption d-none d-md-block text-start">
                             <h2 class="fw-bold">Nueva Colección Verano 2025</h2>
                             <p>Descubre prendas frescas, modernas y con estilo.</p>
-                            <a href="#" class="btn btn-dark">Explorar</a>
+                            <a href="#productos-destacados" class="btn btn-dark">Explorar</a>
                         </div>
                 </div>
                 <div class="carousel-item">
@@ -25,58 +25,70 @@
                         <div class="carousel-caption d-none d-md-block text-start">
                             <h2 class="fw-bold">Looks para cualquier ocasión</h2>
                             <p>Desde casual hasta elegante, tenemos lo que necesitas.</p>
-                            <a href="#" class="btn btn-dark">Ver más</a>
+                            <a href="#categorias" class="btn btn-dark">Ver más</a>
                         </div>
                 </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
         </div>
 
         <!-- Categorías destacadas -->
-        <section class="py-5 bg-light">
+        <section id="categorias" class="py-5 bg-light">
             <div class="container text-center">
                 <h3 class="mb-4 fw-bold">Explora por Categoría</h3>
                 <div class="row g-4">
                     <div class="col-md-3">
                         <a th:href="@{/mujer}" class="text-decoration-none text-dark">
-                            <div class="card border-0 shadow-sm">
+                            <div class="card border-0 shadow-sm h-100 category-card">
                                 <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80"
                                      class="card-img-top" style="height: 250px; object-fit: cover;" alt="Mujeres">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Mujeres</h5>
-                                    </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Mujeres</h5>
+                                    <p class="card-text text-muted">Descubre nuestra colección femenina</p>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-3">
                         <a th:href="@{/hombre}" class="text-decoration-none text-dark">
-                            <div class="card border-0 shadow-sm">
+                            <div class="card border-0 shadow-sm h-100 category-card">
                                 <img src="https://i.pinimg.com/236x/c1/18/a8/c118a87be11a4162f6c170a11f869b25.jpg"
                                      class="card-img-top" style="height: 250px; object-fit: cover;" alt="Hombres">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Hombres</h5>
-                                    </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Hombres</h5>
+                                    <p class="card-text text-muted">Estilo y elegancia masculina</p>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-3">
                         <a th:href="@{/accesorios}" class="text-decoration-none text-dark">
-                            <div class="card border-0 shadow-sm">
+                            <div class="card border-0 shadow-sm h-100 category-card">
                                 <img src="https://media.gotrendier.mx/media/p/2022/06/01/i_584f5bb6-e1d0-11ec-953d-12c79818169d.jpeg"
                                      class="card-img-top" style="height: 250px; object-fit: cover;" alt="Accesorios">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Accesorios</h5>
-                                    </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Accesorios</h5>
+                                    <p class="card-text text-muted">Complementa tu look perfecto</p>
+                                </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-3">
                         <a th:href="@{/zapatos}" class="text-decoration-none text-dark">
-                            <div class="card border-0 shadow-sm">
+                            <div class="card border-0 shadow-sm h-100 category-card">
                                 <img src="https://www.susuela.com/uploads/photo/image/44692/thumb_A11960_ROYYNiBh.JPG"
                                      class="card-img-top" style="height: 250px; object-fit: cover;" alt="Zapatos">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Zapatos</h5>
-                                    </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Zapatos</h5>
+                                    <p class="card-text text-muted">Camina con confianza y estilo</p>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -84,66 +96,326 @@
             </div>
         </section>
 
-        <!-- Productos destacados -->
-        <section class="py-5">
+        <!-- Productos destacados desde la base de datos -->
+        <section id="productos-destacados" class="py-5">
             <div class="container text-center">
                 <h3 class="mb-4 fw-bold">Lo Más Vendido</h3>
+                
+                <!-- Mostrar productos dinámicamente desde la base de datos -->
+                <div class="row g-4" th:if="${productosDestacados != null and !productosDestacados.empty}">
+                    <div class="col-md-3" th:each="producto : ${productosDestacados}">
+                        <div class="card h-100 shadow-sm product-card">
+                            <div class="position-relative">
+                                <img th:src="@{'/img/' + ${producto.rutaImagen}}" 
+                                     class="card-img-top" 
+                                     style="height: 300px; object-fit: cover;" 
+                                     th:alt="${producto.nombre}"
+                                     onerror="this.src='/img/default-image.jpg'">
+                                
+                                <!-- Badge de stock bajo -->
+                                <span class="badge bg-warning position-absolute top-0 start-0 m-2" 
+                                      th:if="${producto.stockActual <= producto.stockMinimo and producto.stockActual > 0}">
+                                    ¡Últimas unidades!
+                                </span>
+                                
+                                <!-- Badge de sin stock -->
+                                <span class="badge bg-danger position-absolute top-0 start-0 m-2" 
+                                      th:if="${producto.stockActual <= 0}">
+                                    Sin stock
+                                </span>
+                            </div>
+                            
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title fw-semibold" th:text="${producto.nombre}">Nombre del Producto</h6>
+                                <p class="text-muted mb-2 small" th:text="${producto.descripcion}">Descripción del producto</p>
+                                
+                                <!-- Información adicional -->
+                                <div class="mb-2">
+                                    <small class="text-muted">
+                                        <span th:if="${producto.color != null and producto.color != 'Sin especificar'}" 
+                                              th:text="'Color: ' + ${producto.color}"></span>
+                                        <span th:if="${producto.talla != null and producto.talla != 'Único'}" 
+                                              th:text="'Talla: ' + ${producto.talla}" 
+                                              class="ms-2"></span>
+                                    </small>
+                                </div>
+                                
+                                <p class="fw-bold text-primary mb-2" style="font-size: 1.1rem;">
+                                    ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                                </p>
+                                
+                                <!-- Stock disponible -->
+                                <p class="card-text small mb-3" 
+                                   th:classappend="${producto.stockActual <= producto.stockMinimo} ? 'text-danger' : 'text-success'">
+                                    <strong>Disponibles:</strong> 
+                                    <span class="stock-value" th:text="${producto.stockActual}">0</span>
+                                </p>
+                                
+                                <button class="btn btn-outline-dark w-100 mt-auto agregar-btn" 
+                                        th:disabled="${producto.stockActual <= 0}"
+                                        th:data-producto-id="${producto.idProducto}"
+                                        th:text="${producto.stockActual <= 0} ? 'Sin Stock' : 'Añadir al carrito'}">
+                                    Agregar al carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensaje cuando no hay productos destacados -->
+                <div class="text-center py-5" th:if="${productosDestacados == null or productosDestacados.empty}">
+                    <div class="mb-4">
+                        <i class="bi bi-box-seam text-muted" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">Próximamente productos destacados</h4>
+                    <p class="text-muted mb-4">
+                        Estamos preparando una selección especial de productos para ti.
+                    </p>
+                    <a th:href="@{/mujer}" class="btn btn-outline-dark px-4 py-2 me-2">
+                        Ver Mujer
+                    </a>
+                    <a th:href="@{/hombre}" class="btn btn-outline-dark px-4 py-2">
+                        Ver Hombre
+                    </a>
+                </div>
+
+                <!-- Botón para ver más productos -->
+                <div class="text-center mt-4" th:if="${productosDestacados != null and !productosDestacados.empty}">
+                    <a href="#categorias" class="btn btn-dark px-4 py-2">
+                        <i class="bi bi-grid me-2"></i>Ver todas las categorías
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de características/beneficios -->
+        <section class="py-5 bg-light">
+            <div class="container">
                 <div class="row g-4">
-                    <div class="col-md-3">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://ae01.alicdn.com/kf/H9f3143e9b5da4273895c39cb7fad2f27v.jpg"
-                                 class="card-img-top" style="height: 360px; object-fit: cover;" alt="Vestido floral">
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title fw-semibold">Vestido Floral</h6>
-                                    <p class="text-muted mb-1">Estilo fresco para primavera</p>
-                                    <p class="fw-bold mt-auto mb-2">₡25,000</p>
-                                    <a href="#" class="btn btn-outline-dark w-100">Ver más</a>
-                                </div>
+                    <div class="col-md-3 text-center">
+                        <div class="mb-3">
+                            <i class="bi bi-truck text-primary" style="font-size: 2.5rem;"></i>
                         </div>
+                        <h5 class="fw-bold">Envío Gratis</h5>
+                        <p class="text-muted">En compras mayores a ₡25,000</p>
                     </div>
-
-                    <div class="col-md-3">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://m.media-amazon.com/images/I/51rkKPruYvL._AC_SL1500_.jpg"
-                                 class="card-img-top" style="height: 360px; object-fit: cover;" alt="Camisa casual">
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title fw-semibold">Camisa Casual</h6>
-                                    <p class="text-muted mb-1">Perfecta para oficina o salida</p>
-                                    <p class="fw-bold mt-auto mb-2">₡19,500</p>
-                                    <a href="#" class="btn btn-outline-dark w-100">Ver más</a>
-                                </div>
+                    <div class="col-md-3 text-center">
+                        <div class="mb-3">
+                            <i class="bi bi-arrow-clockwise text-primary" style="font-size: 2.5rem;"></i>
                         </div>
+                        <h5 class="fw-bold">Devoluciones</h5>
+                        <p class="text-muted">30 días para cambios y devoluciones</p>
                     </div>
-
-                    <div class="col-md-3">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://www.susuela.com/uploads/photo/image/44692/thumb_A11960_ROYYNiBh.JPG"
-                                 class="card-img-top" style="height: 360px; object-fit: cover;" alt="Zapatos urbanos">
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title fw-semibold">Zapatos Urbanos</h6>
-                                    <p class="text-muted mb-1">Confort para el día a día</p>
-                                    <p class="fw-bold mt-auto mb-2">₡34,900</p>
-                                    <a href="#" class="btn btn-outline-dark w-100">Ver más</a>
-                                </div>
+                    <div class="col-md-3 text-center">
+                        <div class="mb-3">
+                            <i class="bi bi-shield-check text-primary" style="font-size: 2.5rem;"></i>
                         </div>
+                        <h5 class="fw-bold">Compra Segura</h5>
+                        <p class="text-muted">Pago 100% seguro y protegido</p>
                     </div>
-
-                    <div class="col-md-3">
-                        <div class="card h-100 shadow-sm">
-                            <img src="https://i.pinimg.com/736x/36/72/16/3672164358e249ae78bd6bd4ac6f81a6.jpg"
-                                 class="card-img-top" style="height: 360px; object-fit: cover;" alt="Accesorios modernos">
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title fw-semibold">Set de Accesorios</h6>
-                                    <p class="text-muted mb-1">Pulseras de moda</p>
-                                    <p class="fw-bold mt-auto mb-2">₡8,500</p>
-                                    <a href="#" class="btn btn-outline-dark w-100">Ver más</a>
-                                </div>
+                    <div class="col-md-3 text-center">
+                        <div class="mb-3">
+                            <i class="bi bi-headset text-primary" style="font-size: 2.5rem;"></i>
                         </div>
+                        <h5 class="fw-bold">Soporte 24/7</h5>
+                        <p class="text-muted">Atención al cliente siempre disponible</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <footer th:replace="~{layout/plantilla :: footer}"/>
+
+        <!-- Scripts para funcionalidad del carrito -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                console.log('Página principal cargada, jQuery disponible:', typeof $ !== 'undefined');
+                
+                // Función para mostrar notificaciones
+                function mostrarNotificacion(mensaje, tipo = 'success') {
+                    if (typeof window.mostrarNotificacion === 'function') {
+                        window.mostrarNotificacion(mensaje, tipo);
+                        return;
+                    }
+                    
+                    // Función local como respaldo
+                    let toastContainer = document.querySelector('.toast-container');
+                    if (!toastContainer) {
+                        toastContainer = document.createElement('div');
+                        toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+                        toastContainer.style.zIndex = '11';
+                        document.body.appendChild(toastContainer);
+                    }
+
+                    const toastHtml = `
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <i class="bi bi-cart3 text-${tipo === 'success' ? 'success' : 'danger'} me-2"></i>
+                                <strong class="me-auto">Carrito</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                ${mensaje}
+                            </div>
+                        </div>
+                    `;
+
+                    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+                    const toastElement = toastContainer.lastElementChild;
+                    const toast = new bootstrap.Toast(toastElement, {
+                        autohide: true,
+                        delay: 3000
+                    });
+
+                    toast.show();
+
+                    toastElement.addEventListener('hidden.bs.toast', function () {
+                        toastElement.remove();
+                    });
+                }
+                
+                // Función para actualizar contador del carrito
+                function actualizarContadorCarrito(cantidad) {
+                    if (typeof window.actualizarContadorCarrito === 'function') {
+                        window.actualizarContadorCarrito(cantidad);
+                        return;
+                    }
+                    
+                    const cartCount = document.getElementById('cart-count');
+                    if (cartCount) {
+                        cartCount.textContent = cantidad || 0;
+                    }
+                }
+                
+                // Event listener para botones de agregar al carrito
+                $('.agregar-btn').on('click', function() {
+                    const button = $(this);
+                    const productoId = button.data('producto-id');
+                    const cantidad = 1;
+                    
+                    console.log('Agregando producto desde index:', productoId);
+                    
+                    if (typeof $ === 'undefined') {
+                        console.error('jQuery no está disponible');
+                        mostrarNotificacion('Error: Sistema no disponible', 'danger');
+                        return;
+                    }
+                    
+                    // Deshabilitar botón
+                    const originalText = button.text();
+                    button.prop('disabled', true).text('Agregando...');
+                    
+                    // Realizar petición AJAX
+                    $.ajax({
+                        url: '/carrito/agregar',
+                        type: 'POST',
+                        data: {
+                            productoId: productoId,
+                            cantidad: cantidad
+                        },
+                        timeout: 10000,
+                        success: function(response) {
+                            console.log('Respuesta del servidor:', response);
+                            
+                            if (response.success) {
+                                mostrarNotificacion(response.message || 'Producto agregado al carrito', 'success');
+                                
+                                if (response.cantidadItems) {
+                                    actualizarContadorCarrito(response.cantidadItems);
+                                }
+                                
+                                // Actualizar stock en la página
+                                const stockElement = button.closest('.card-body').find('.stock-value');
+                                if (stockElement.length) {
+                                    const currentStock = parseInt(stockElement.text());
+                                    const newStock = currentStock - cantidad;
+                                    stockElement.text(newStock);
+                                    
+                                    if (newStock <= 0) {
+                                        button.prop('disabled', true).text('Sin Stock');
+                                        return;
+                                    }
+                                }
+                            } else {
+                                mostrarNotificacion(response.message || 'Error al agregar producto', 'danger');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error AJAX:', {
+                                status: status,
+                                error: error,
+                                response: xhr.responseText
+                            });
+                            
+                            let errorMessage = 'Error al agregar producto al carrito';
+                            if (xhr.status === 0) {
+                                errorMessage = 'Error de conexión. Verifica tu conexión a internet.';
+                            } else if (xhr.status === 404) {
+                                errorMessage = 'Servicio no encontrado';
+                            } else if (xhr.status === 500) {
+                                errorMessage = 'Error interno del servidor';
+                            }
+                            
+                            mostrarNotificacion(errorMessage, 'danger');
+                        },
+                        complete: function() {
+                            if (!button.text().includes('Sin Stock')) {
+                                button.prop('disabled', false).text(originalText);
+                            }
+                        }
+                    });
+                });
+
+                // Efectos hover para las cards
+                $('.category-card').hover(
+                    function() {
+                        $(this).addClass('shadow-lg').css('transform', 'translateY(-5px)');
+                    },
+                    function() {
+                        $(this).removeClass('shadow-lg').css('transform', 'translateY(0)');
+                    }
+                );
+
+                $('.product-card').hover(
+                    function() {
+                        $(this).addClass('shadow-lg').css('transform', 'translateY(-3px)');
+                    },
+                    function() {
+                        $(this).removeClass('shadow-lg').css('transform', 'translateY(0)');
+                    }
+                );
+            });
+        </script>
+
+        <style>
+            .category-card,
+            .product-card {
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .product-card .card-img-top {
+                transition: transform 0.3s ease;
+            }
+
+            .product-card:hover .card-img-top {
+                transform: scale(1.05);
+            }
+
+            .badge {
+                font-size: 0.75rem;
+            }
+
+            @media (max-width: 768px) {
+                .carousel-caption h2 {
+                    font-size: 1.5rem;
+                }
+                
+                .carousel-caption p {
+                    font-size: 0.9rem;
+                }
+            }
+        </style>
     </body>
 </html>
