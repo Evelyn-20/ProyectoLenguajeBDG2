@@ -4,8 +4,8 @@ import java.util.List;
 
 public class CategoriaDAO {
 
-    public void insertar(Categoria c) {
-        String sql = "INSERT INTO categorias(nombre_categoria) VALUES(?)";
+    public void registrar(Categoria c) {
+        String sql = "INSERT INTO categorias(nombre_categoria, estado) VALUES(?, 1)";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, c.getNombre());
@@ -13,6 +13,24 @@ public class CategoriaDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Categoria consultar(int idCategoria) {
+        Categoria c = null;
+        String sql = "SELECT * FROM categorias WHERE id_categoria=?";
+        try (Connection con = Conexion.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idCategoria);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                c = new Categoria();
+                c.setIdCategoria(rs.getInt("id_categoria"));
+                c.setNombre(rs.getString("nombre_categoria"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return c;
     }
 
     public void actualizar(Categoria c) {
@@ -27,8 +45,8 @@ public class CategoriaDAO {
         }
     }
 
-    public void eliminar(int idCategoria) {
-        String sql = "DELETE FROM categorias WHERE id_categoria=?";
+    public void deshabilitar(int idCategoria) {
+        String sql = "UPDATE categorias SET estado=0 WHERE id_categoria=?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idCategoria);
@@ -40,7 +58,7 @@ public class CategoriaDAO {
 
     public List<Categoria> listar() {
         List<Categoria> lista = new ArrayList<>();
-        String sql = "SELECT * FROM categorias";
+        String sql = "SELECT * FROM categorias WHERE estado=1";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -56,3 +74,4 @@ public class CategoriaDAO {
         return lista;
     }
 }
+
