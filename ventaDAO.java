@@ -1,12 +1,27 @@
+package com.proyecto.dao;
+
+import com.proyecto.domain.Venta;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VentaDAO {
 
-    public void registrar(int idCliente, int idProducto, int cantidad) {
-        String sqlVenta = "INSERT INTO ventas(id_cliente, fecha_venta, estado) VALUES(?, SYSDATE, 'ACTIVA')";
-        String sqlDetalle = "INSERT INTO detalle_ventas(id_venta, id_producto, cantidad, subtotal) VALUES(?, ?, ?, ?)";
+    private Venta mapRow(ResultSet rs) throws Exception {
+        Venta venta = new Venta();
+        venta.setIdVenta(rs.getInt("id_venta"));
+        venta.setFechaVenta(rs.getDate("fecha_venta"));
+        venta.setEstado(rs.getString("estado"));
+        venta.setNombreCliente(rs.getString("nombre_cliente"));
+        venta.setNombreProducto(rs.getString("nombre_producto"));
+        venta.setCantidad(rs.getInt("cantidad"));
+        venta.setSubtotal(rs.getDouble("subtotal"));
+        return venta;
+    }
+
+    public void registrarVenta(int idCliente, int idProducto, int cantidad) {
+        String sqlVenta = "INSERT INTO ventas (id_cliente, fecha_venta, estado) VALUES (?, SYSDATE, 'ACTIVA')";
+        String sqlDetalle = "INSERT INTO detalle_ventas (id_venta, id_producto, cantidad, subtotal) VALUES (?, ?, ?, ?)";
         try (Connection con = Conexion.getConnection()) {
             con.setAutoCommit(false);
 
@@ -37,34 +52,30 @@ public class VentaDAO {
         }
     }
 
-    public String consultar(int idVenta) {
-        String sql = "SELECT v.id_venta, v.fecha_venta, v.estado, c.nombre_cliente, p.nombre_producto, d.cantidad, d.subtotal " +
+    public Venta findById(int idVenta) {
+        Venta venta = null;
+        String sql = "SELECT v.id_venta, v.fecha_venta, v.estado, c.nombre_cliente, " +
+                     "p.nombre_producto, d.cantidad, d.subtotal " +
                      "FROM ventas v " +
                      "JOIN clientes c ON v.id_cliente = c.id_cliente " +
                      "JOIN detalle_ventas d ON v.id_venta = d.id_venta " +
                      "JOIN productos p ON d.id_producto = p.id_producto " +
-                     "WHERE v.id_venta=?";
+                     "WHERE v.id_venta = ?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idVenta);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return "Venta #" + rs.getInt("id_venta") +
-                       " | Cliente: " + rs.getString("nombre_cliente") +
-                       " | Producto: " + rs.getString("nombre_producto") +
-                       " | Cantidad: " + rs.getInt("cantidad") +
-                       " | Subtotal: " + rs.getDouble("subtotal") +
-                       " | Estado: " + rs.getString("estado") +
-                       " | Fecha: " + rs.getDate("fecha_venta");
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    venta = mapRow(rs);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return venta;
     }
-
-    public void cambiarEstado(int idVenta, String nuevoEstado) {
-        String sql = "UPDATE ventas SET estado=? WHERE id_venta=?";
+    public void cambiarEstadoVenta(int idVenta, String nuevoEstado) {
+        String sql = "UPDATE ventas SET estado = ? WHERE id_venta = ?";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, nuevoEstado);
@@ -75,20 +86,23 @@ public class VentaDAO {
         }
     }
 
-    public List<String> listar() {
-        List<String> lista = new ArrayList<>();
-        String sql = "SELECT v.id_venta, v.fecha_venta, v.estado, c.nombre_cliente " +
+    public List<Venta> findAll() {
+        List<Venta> lista = new ArrayList<>();
+        String sql = "SELECT v.id_venta, v.fecha_venta, v.estado, c.nombre_cliente, " +
+                     "NULL AS nombre_producto, NULL AS cantidad, NULL AS subtotal " +
                      "FROM ventas v " +
-                     "JOIN clientes c ON v.id_cliente = c.id_cliente";
+                     "JOIN clientes c ON v.id_cliente = c.id_cliente " +
+                     "ORDER BY v.fecha_venta DESC";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                String fila = "Venta #" + rs.getInt("id_venta") +
-                              " | Cliente: " + rs.getString("nombre_cliente") +
-                              " | Estado: " + rs.getString("estado") +
-                              " | Fecha: " + rs.getDate("fecha_venta");
-                lista.add(fila);
+                Venta v = new Venta();
+                v.setIdVenta(rs.getInt("id_venta"));
+                v.setFechaVenta(rs.getDate("fecha_venta"));
+                v.setEstado(rs.getString("estado"));
+                v.setNombreCliente(rs.getString("nombre_cliente"));
+                lista.add(v);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,30 +110,27 @@ public class VentaDAO {
         return lista;
     }
 
-    public List<String> historialCompras(int idCliente) {
-        List<String> lista = new ArrayList<>();
-        String sql = "SELECT v.id_venta, v.fecha_venta, p.nombre_producto, d.cantidad, d.subtotal " +
+    public List<Venta> findHistorialByCliente(int idCliente) {
+        List<Venta> lista = new ArrayList<>();
+        String sql = "SELECT v.id_venta, v.fecha_venta, v.estado, c.nombre_cliente, " +
+                     "p.nombre_producto, d.cantidad, d.subtotal " +
                      "FROM ventas v " +
+                     "JOIN clientes c ON v.id_cliente = c.id_cliente " +
                      "JOIN detalle_ventas d ON v.id_venta = d.id_venta " +
                      "JOIN productos p ON d.id_producto = p.id_producto " +
-                     "WHERE v.id_cliente=?";
+                     "WHERE v.id_cliente = ? " +
+                     "ORDER BY v.fecha_venta DESC";
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idCliente);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String fila = "Venta #" + rs.getInt("id_venta") +
-                              " | Producto: " + rs.getString("nombre_producto") +
-                              " | Cantidad: " + rs.getInt("cantidad") +
-                              " | Subtotal: " + rs.getDouble("subtotal") +
-                              " | Fecha: " + rs.getDate("fecha_venta");
-                lista.add(fila);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(mapRow(rs));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return lista;
-    }
-}
     }
 }
